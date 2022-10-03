@@ -3,6 +3,7 @@ const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const blogRoutes = require('./router/blogRouter')
 
 
 //express app
@@ -22,7 +23,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(morgan('dev'))
 
-const blogRoutes = require('./router/blogRouter')
 const apiAdminRouter = require('./router/apiAdmin.js');
 const apiRouter = require('./router/api.js');
 const publicRouter = require('./router/public.js');
@@ -42,13 +42,25 @@ app.get('/admin', (req, res) =>{
 app.get('/about', (req, res) => {
     res.render('about', {title: 'About'});
 });
-*/
+
 app.use('/blogs', blogRoutes);
+*/
+app.use('/api/admin', apiAdminRouter);
+
+app.use('/api', apiRouter);
+
+app.use('/', publicRouter);
+  
+  // 404 page
+app.use((req, res) => {
+    res.status(404).render('404');
+});
 
 
 
 const jwtOptions = {
     secure: {
+        secret: JWT_KEY,
         getToken: (req) => {
             return req.cookies['token'];
         },
@@ -56,6 +68,7 @@ const jwtOptions = {
         algorithms: ["HS256"]
     },
     lax: {
+        secret: JWT_KEY,
         getToken: (req) => {
             return req.cookies['token'];
         },
@@ -63,14 +76,3 @@ const jwtOptions = {
         algorithms: ["HS256"]
     }
 }
-
-app.use('/api/admin', jwt(jwtOptions.secure), apiAdminRouter);
-
-app.use('/api', jwt(jwtOptions.secure), apiRouter);
-
-app.use('/', jwt(jwtOptions.secure), publicRouter);
-  
-  // 404 page
-app.use((req, res) => {
-    res.status(404).render('404');
-});
