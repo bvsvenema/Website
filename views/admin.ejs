@@ -2,7 +2,16 @@
 <html lang="en">
 
 <head>
-    <%- include("./partials/head.ejs") %>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+    crossorigin="anonymous">
+
+    <title>Simcen</title>
 </head>
 
 <body>
@@ -73,11 +82,11 @@
                                         </div>
                                     </div>
         
-                                    <% //if(locals.errMsg) { %>
-                                        <p class=" h5 mt-3 text-danger"><%= //locals.errMsg %></p>
-                                    <% //}else{ %>
+                                    <% if(locals.errMsg) { %>
+                                        <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
+                                    <% }else{ %>
                                         <br><br><br>
-                                    <% //} %>
+                                    <% } %>
                                 </form>
                             </div>                       
                             <div class="tab-pane fade" id="UsersMenu"  role="tabpanel" tabindex="0">

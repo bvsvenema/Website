@@ -1,5 +1,5 @@
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
-const Blog = require('../models/blog');
+const Blog = require('../API/models/blog');
 
 const blog_index = (req, res) => {
     Blog.find().sort({CreatedAt: -1 })
