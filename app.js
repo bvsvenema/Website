@@ -3,10 +3,7 @@ const express = require('express');
 const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const formidable = require('formidable');
 const mongoose = require('mongoose');
-const blogRoutes = require('./router/blogRouter')
-const { JWT_KEY } = process.env;
 //express app
 const app = express();
 
@@ -27,10 +24,11 @@ app.use(morgan('dev'))
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-
+const blogRoutes = require('./router/blogRouter')
 const apiAdminRouter = require('./router/apiAdmin.js');
 const apiRouter = require('./router/api.js');
 const publicRouter = require('./router/public.js');
+const pictureRouter = require('./router/pictureRouter.js');
 
 
 const jwtOptions = {
@@ -60,6 +58,8 @@ app.use('/api', jwt(jwtOptions.lax), apiRouter);
 app.use('/', jwt(jwtOptions.lax), publicRouter);
 
 app.use('/blogs', jwt(jwtOptions.lax),  blogRoutes);
+
+app.use('/picture', jwt(jwtOptions.lax), pictureRouter);
  
   // 404 page
 app.use((req, res) => {
