@@ -1,12 +1,19 @@
 const express = require('express');
 const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
-
-const model = require('../API/models/user');
+const User = require('../API/models/user');
 
 router.get('/admin', async (req, res) => {
+    if (!req.auth) return res.status(401).render('login', {title: 'login'})
     // TODO: handle authentication (move to apiAuth)
-    res.status(200).render('admin', {title: 'Admin'});
+    //res.status(200).render('admin', {title: 'Admin'});
+
+    User.find().sort({CreatedAt: -1 })
+    .then((result) =>{
+        res.render('admin', {user: result, title: 'All blogs'})
+    }).catch((err)=>{
+        console.log(err);
+    });
 });
 
 router.get('/', async (req, res) => {

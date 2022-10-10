@@ -1,7 +1,7 @@
 // blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
-const Blog = require('../API/models/blog');
+const Picture = require('../API/models/picture');
 
-const blog_index = (req, res) => {
+/*const picture_index = (req, res) => {
     if (!req.auth) return res.status(401).render('login', {title: 'login'});
     Blog.find().sort({CreatedAt: -1 })
     .then((result) =>{
@@ -11,7 +11,7 @@ const blog_index = (req, res) => {
     });
 }
 
-const blog_details = (req, res) => {
+const picture_details = (req, res) => {
     if (!req.auth) return res.status(401).render('login', {title: 'login'});
     const id = req.params.id;
     Blog.findById(id)
@@ -20,18 +20,18 @@ const blog_details = (req, res) => {
     }).catch(err =>{
         console.log(err);
     });
+}*/
+
+const picture_create_get = (req , res) => {
+    if (!req.auth) return res.status(401).render('login', {title: 'login'});
+    res.render('pictureUpload', {title: "Create a new blog"});
 }
 
-const blog_create_get = (req , res) => {
+const picture_create_post = (req , res) => {
     if (!req.auth) return res.status(401).render('login', {title: 'login'});
-    res.render('create', {title: "Create a new blog"});
-}
+    const picture = new Picture(req.body)
 
-const blog_create_post = (req , res) => {
-    if (!req.auth) return res.status(401).render('login', {title: 'login'});
-    const blog = new Blog(req.body)
-
-    blog.save()
+    picture.save()
     .then((result) =>{
         res.redirect('/')
     })
@@ -40,23 +40,9 @@ const blog_create_post = (req , res) => {
     });
 }
 
-const blog_delete = (req, res) =>{
-    if (!req.auth) return res.status(401).render('login', {title: 'login'});
-    const id = req.params.id;
-    Blog.findByIdAndDelete(id)
-      .then(result => {
-        res.json({ redirect: '/blogs' });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-}
 
 
 module.exports = {
-    blog_index,
-    blog_details,
-    blog_create_get,
-    blog_create_post,
-    blog_delete
+    picture_create_post,
+    picture_create_get
 }
