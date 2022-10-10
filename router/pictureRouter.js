@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const multer = require("multer");
 router.use(express.urlencoded({ extended: true }));
-const Image = require('../API/models/Image')
+const Image = require('../API/models/Image');
+var fs = require('fs');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
