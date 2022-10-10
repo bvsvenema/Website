@@ -4,6 +4,9 @@ const multer = require("multer");
 router.use(express.urlencoded({ extended: true }));
 const Image = require('../API/models/Image');
 var fs = require('fs');
+const path = require('path');
+
+const { debug } = require('console');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -17,6 +20,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.get('/', (req, res) => {
+
     Image.find({}, (err, items) => {
         if (err) {
             console.log(err);
@@ -28,13 +32,17 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/upload', upload.single('image'), (req, res, next) => {
-  
-    var obj = {
+router.post('/upload', upload.single('image'), async (req, res, next) => {
+    //const userid = await user.findById({_id : userid});
+    //console.log(userid);'
+    var user = req.user;
+    console.log(user);
+    var obj = { 
         name: req.body.name,
+        userId: user,
         img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
+            data: fs.readFileSync(path.join(__dirname,  '../uploads/' + req.file.filename)),
+            contentType: 'image/png',
         }
     }
     Image.create(obj, (err, item) => {
@@ -42,8 +50,9 @@ router.post('/upload', upload.single('image'), (req, res, next) => {
             console.log(err);
         }
         else {
-            // item.save();
-            res.redirect('/');
+            
+            item.save();
+            res.redirect('/', {user: user});
         }
     });
 });

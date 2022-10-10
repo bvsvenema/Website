@@ -12,6 +12,7 @@ router.use(async (req, res, next) => {
     if (!req.auth) return res.status(401).render('login', { errMsg: "Unauthorized!" });
     else next();
 });
+
 router.route('/user/:action')
     .post((req, res) => {
         switch (req.params.action) {
