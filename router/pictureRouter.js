@@ -35,11 +35,9 @@ router.get('/', (req, res) => {
 router.post('/upload', upload.single('image'), async (req, res, next) => {
     //const userid = await user.findById({_id : userid});
     //console.log(userid);'
-    var user = req.user;
-    console.log(user);
     var obj = { 
         name: req.body.name,
-        userId: user,
+        userId: req.auth.userId,
         img: {
             data: fs.readFileSync(path.join(__dirname,  '../uploads/' + req.file.filename)),
             contentType: 'image/png',
@@ -52,7 +50,7 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
         else {
             
             item.save();
-            res.redirect('/', {user: user});
+            res.redirect('/');
         }
     });
 });
