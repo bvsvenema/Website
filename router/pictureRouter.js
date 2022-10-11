@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('uploadPicture', { items: items });
+            res.render('uploadPicture', { items: items , title: 'Upload'});
         }
     });
 });
@@ -50,7 +50,7 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
         else {
             
             item.save();
-            res.redirect('/');
+            res.redirect('/', {title: 'Upload'});
         }
     });
 });

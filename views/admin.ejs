@@ -21,9 +21,7 @@
             <div class="row py-lg-1">
                 <h1 class="fw-light"> Admin dashboard</h1>
             </div>
-        </section>
-
-        
+        </section>       
         <div class="py-5 bg-light">
             <div class="container">
                 <div class="justify-content-center row g-3">
@@ -74,7 +72,9 @@
                                             <option value="0">Viewer</option>
                                             <option value="1">Stagiaire</option>
                                             <option value="2">Stage Begeleider</option>
+                                            <%if( admin == 3 ){%>
                                             <option value="3">Developer</option>
+                                            <% } %> 
                                         </select><br>
         
                                         <div class="col-md-12 text-center ">
@@ -97,7 +97,8 @@
                                     user.forEach(user => { %>
                                         <h3><%= user.fullName %></h3>
                                         <p><%= user.email%></p>
-                                        <p><%= user._id %></p>    
+                                        <p><%= user._id %></p>  
+                                        <p><%= user.admin %></p>  
                                     <%});%> 
                                     <%}else{%>
                                         <p>there a no users</p>

@@ -7,10 +7,11 @@ router.get('/admin', async (req, res) => {
     if (!req.auth) return res.status(401).render('login', {title: 'login'})
     // TODO: handle authentication (move to apiAuth)
     //res.status(200).render('admin', {title: 'Admin'});
-
+    console.log(req.auth.admin);
+    if(req.auth.admin <= 1) return res.status(400).redirect('/')
     User.find().sort({CreatedAt: -1 })
     .then((result) =>{
-        res.render('admin', {user: result, title: 'All blogs'})
+        res.render('admin', {user: result, admin: req.auth.admin , title: 'All blogs'})
     }).catch((err)=>{
         console.log(err);
     });
@@ -19,9 +20,8 @@ router.get('/admin', async (req, res) => {
 router.get('/', async (req, res) => {
     // Verify user is logged in using req.auth
     if (!req.auth) return res.status(401).render('login', {title: 'login'});
-
     // TODO: render actual rekenweb page (user is logged in)
-    res.status(200).send("Hello world!");
+     return res.status(200).render("index", {title: 'Home'});
 });
 
 module.exports = router;

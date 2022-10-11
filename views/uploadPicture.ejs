@@ -2,13 +2,13 @@
 <html lang="en">
   
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Uploading</title>
+    <%- include("./partials/head.ejs") %>
 </head>
   
 <body>
     <h1>To Upload Image on mongoDB</h1>
+    <%- include("./partials/nav.ejs") %>
+
     <hr>
     <div>
         <form action="/picture/upload" method="POST" enctype="multipart/form-data">
@@ -34,29 +34,24 @@
         </form>
     </div>
   
-    <hr>
-  
-    <h1>Uploaded Images</h1>
-    <div>
-        <% items.forEach(function(Image) { %>
-        <div>
-            <div>
-                <img src="data:Image/<%=Image.img.contentType%>;base64,
-                     <%=Image.img.data.toString('base64')%>">
-                <div>
-                    <h5><%= Image.name %></h5>
-                      
-  
-  
-<p><%= Image.desc %></p>
-  
-  
-  
-                </div>
-            </div>
+    <div class="container">
+
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Thumbnail Gallery</h1>
+      
+        <hr class="mt-2 mb-5">
+      
+        <div class="row text-center text-lg-start">
+            <% items.foreach(function(image) { %>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <a href="#" class="d-block mb-4 h-100">
+                        <p><%= Image.name %></p>
+                        <img class="img-fluid img-thumbnail" src="data:Image/<%=Image.img.contentType%>;base64,<%=Image.img.data.toString('base64')%>" >
+                    </a>
+                  </div>
+            <%})%> 
         </div>
-        <% }) %>
-    </div>
+         <%- include("./partials/footer.ejs") %>
+      </div>
 </body>
   
 </html>
