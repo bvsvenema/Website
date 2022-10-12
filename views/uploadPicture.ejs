@@ -41,11 +41,11 @@
         <hr class="mt-2 mb-5">
       
         <div class="row text-center text-lg-start">
-            <% items.foreach(function(image) { %>
+            <% items.forEach(function(image) { %>
                 <div class="col-lg-3 col-md-4 col-6">
                     <a href="#" class="d-block mb-4 h-100">
-                        <p><%= Image.name %></p>
-                        <img class="img-fluid img-thumbnail" src="data:Image/<%=Image.img.contentType%>;base64,<%=Image.img.data.toString('base64')%>" >
+                        <p><%= image.name %></p>
+                        <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
                     </a>
                   </div>
             <%})%> 

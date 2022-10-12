@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require("multer");
 router.use(express.urlencoded({ extended: true }));
-const Image = require('../API/models/Image');
+const image = require('../API/models/Image');
 var fs = require('fs');
 const path = require('path');
 
@@ -19,15 +19,27 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-router.get('/', (req, res) => {
+router.get('/create', (req, res) => {
 
-    Image.find({}, (err, items) => {
+    image.find({}, (err, items) => {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
         }
         else {
             res.render('uploadPicture', { items: items , title: 'Upload'});
+        }
+    });
+});
+
+router.get('/', (req,res) =>{
+    image.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('uploadPicture', { items: items , title: 'pictures'});
         }
     });
 });
@@ -43,13 +55,13 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
             contentType: 'image/png',
         }
     }
-    Image.create(obj, (err, item) => {
+    image.create(obj, (err, items) => {
         if (err) {
             console.log(err);
         }
         else {
             
-            item.save();
+            items.save();
             res.redirect('/', {title: 'Upload'});
         }
     });

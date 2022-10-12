@@ -20,6 +20,7 @@ router.get('/admin', async (req, res) => {
 router.get('/', async (req, res) => {
     // Verify user is logged in using req.auth
     if (!req.auth) return res.status(401).render('login', {title: 'login'});
+    
     // TODO: render actual rekenweb page (user is logged in)
      return res.status(200).render("index", {title: 'Home'});
 });

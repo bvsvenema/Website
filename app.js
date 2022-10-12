@@ -4,6 +4,7 @@ const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 //express app
 const app = express();
 
@@ -42,12 +43,12 @@ const jwtOptions = {
     },
     lax: {
         secret: 'blubblub' ,
+        credentialsRequired: false,
         getToken: (req) => {
             return req.cookies['token'];
         },
-        credentialsRequired: false,
         algorithms: ["HS256"]
-    },
+    }
 }
 
 
