@@ -61,6 +61,12 @@ app.use('/', jwt(jwtOptions.lax), publicRouter);
 app.use('/blogs', jwt(jwtOptions.lax),  blogRoutes);
 
 app.use('/picture', jwt(jwtOptions.lax), pictureRouter);
+
+//when the token is expired delete the token and send back to the login page
+app.use((err, req, res, next) => {  if (err.name === 'UnauthorizedError') { 
+    res.clearCookie('token');
+    return res.status(400).redirect('/');
+}})
  
   // 404 page
 app.use((req, res) => {

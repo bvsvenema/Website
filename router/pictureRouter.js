@@ -62,7 +62,7 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
         else {
             
             items.save();
-            res.redirect('/', {title: 'Upload'});
+            res.redirect('/');
         }
     });
 });
