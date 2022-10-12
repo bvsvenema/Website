@@ -4,7 +4,6 @@ const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const path = require('path');
 //express app
 const app = express();
 
@@ -24,12 +23,13 @@ app.use(morgan('dev'))
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname+ '/public'));
 
-const blogRoutes = require('./router/blogRouter')
 const apiAdminRouter = require('./router/apiAdmin.js');
 const apiRouter = require('./router/api.js');
 const publicRouter = require('./router/public.js');
 const pictureRouter = require('./router/pictureRouter.js');
+const folderRouter = require('./router/folderRouter.js');
 
 
 const jwtOptions = {
@@ -58,9 +58,9 @@ app.use('/api', jwt(jwtOptions.lax), apiRouter);
 
 app.use('/', jwt(jwtOptions.lax), publicRouter);
 
-app.use('/blogs', jwt(jwtOptions.lax),  blogRoutes);
+app.use('/folder', jwt(jwtOptions.secure),  folderRouter);
 
-app.use('/picture', jwt(jwtOptions.lax), pictureRouter);
+app.use('/picture', jwt(jwtOptions.secure), pictureRouter);
 
 //when the token is expired delete the token and send back to the login page
 app.use((err, req, res, next) => {  if (err.name === 'UnauthorizedError') { 
