@@ -5,36 +5,51 @@
     <%- include("./partials/head.ejs") %>
 
 <body>
-    <h1>To Upload Image on mongoDB</h1>
+    <br>
     <%- include("./partials/nav.ejs") %>
-
-    <hr>
-    <div>
-        <form action="/picture/upload" method="POST" enctype="multipart/form-data">
-            <div>
-                <label for="name">Image Title</label>
-                <input type="text" id="name" placeholder="Name" 
-                       value="" name="name" required>
+    <br><br><br><br>
+    <section class="vh-50 gradient-custom">
+        <div class="container py-5 h-75">
+          <div class="row d-flex justify-content-center align-items-center h-75">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+      
+                  <div class="">
+                    <form action="/picture/upload" method="post" enctype="multipart/form-data">
+                    <h2 class="fw-bold mb-2 text-uppercase">Upload File</h2>
+      
+                    <div class="form-outline form-white mb-4">
+                        <label class="form-label" for="name">File Name</label>
+                      <input type="text" name="name" id="name"  class="form-control form-control-lg" aria-describedby="name" placeholder="FileName" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="image" class="form-label">Set File</label>
+                        <input class="form-control form-control-lg" type="file" id="image" name="image" required>
+                      </div>
+                      <div class="mb-4">
+                        <label class="form-label" for="InputFolder">Choose folder</label><br>
+                        <select name="folder" id="folder" class="w-100 form-control-lg" aria-label="Default select example">
+                            <option value="0">Buildings</option>
+                            <option value="1">Items</option>
+                            <option value="2">Vehicles</option>
+                            <option value="3">Weapons</option>
+                        </select><br>
+                    </div><br>
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Upload</button>
+                    <% if(locals.errMsg) { %>
+                      <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
+                  <% }else{ %>
+                      <br><br>
+                  <% } %>
+                  </form>
+                  </div>      
+                </div>
+              </div>
             </div>
-            <div>
-                <label for="InputFolder">Choose folder</label>
-                <select name="folder" id="folder" class="" aria-label="Default select example">
-                    <option value="0">Buildings</option>
-                    <option value="1">Items</option>
-                    <option value="2">Vehicles</option>
-                    <option value="3">Weapons</option>
-                </select><br>
-            </div>
-            <div>
-                <label for="image">Upload Image</label>
-                <input type="file" id="image" 
-                       name="image" value="" required>
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
+          </div>
+        </div>
+    </section>
       <%- include("./partials/footer.ejs") %>
 </body>
   
