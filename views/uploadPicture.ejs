@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<head>
+
     <%- include("./partials/head.ejs") %>
-</head>
-  
+
 <body>
     <h1>To Upload Image on mongoDB</h1>
     <%- include("./partials/nav.ejs") %>
@@ -18,10 +17,13 @@
                        value="" name="name" required>
             </div>
             <div>
-                <label for="desc">Image Description</label>
-                <textarea id="desc" name="desc" value="" rows="2" 
-                          placeholder="Description" required>
-                </textarea>
+                <label for="InputFolder">Choose folder</label>
+                <select name="folder" id="folder" class="" aria-label="Default select example">
+                    <option value="0">Buildings</option>
+                    <option value="1">Items</option>
+                    <option value="2">Vehicles</option>
+                    <option value="3">Weapons</option>
+                </select><br>
             </div>
             <div>
                 <label for="image">Upload Image</label>

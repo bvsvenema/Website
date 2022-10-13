@@ -1,0 +1,16 @@
+<html lang="en">
+
+  <%- include("./partials/head.ejs") %>
+
+
+<body>
+  
+    <h1></h1>
+    <%- include("./partials/nav.ejs") %>
+        <div class="col-lg-3 col-md-4 col-6">
+              <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
+              <p><%= image.name %></p>
+          </div>
+     <%- include("./partials/footer.ejs") %>
+</body>
+</html>

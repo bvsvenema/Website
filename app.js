@@ -1,4 +1,5 @@
 const requestLogger = require('./custom_modules/requestLogger');
+
 const express = require('express');
 const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
@@ -30,6 +31,7 @@ const apiRouter = require('./router/api.js');
 const publicRouter = require('./router/public.js');
 const pictureRouter = require('./router/pictureRouter.js');
 const folderRouter = require('./router/folderRouter.js');
+const viewRouter = require('./router/viewRouter.js')
 
 
 const jwtOptions = {
@@ -59,6 +61,8 @@ app.use('/api', jwt(jwtOptions.lax), apiRouter);
 app.use('/', jwt(jwtOptions.lax), publicRouter);
 
 app.use('/folder', jwt(jwtOptions.secure),  folderRouter);
+
+app.use('/view', jwt(jwtOptions.secure), viewRouter)
 
 app.use('/picture', jwt(jwtOptions.secure), pictureRouter);
 

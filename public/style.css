@@ -29,3 +29,8 @@ body{
     width: auto!important;
     float:right; 
 }
+
+.pageImage{
+    height: 10px!important;
+    width: auto!important;
+}

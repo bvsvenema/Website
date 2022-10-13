@@ -9,6 +9,7 @@ router.get('/', (req,res) =>{
      return res.status(200).render("folder", {title: 'folder'});
 });
 
+
 router.get('/buildings', (req,res) =>{
     image.find({}, (err, items) => {
         if (err) {
@@ -56,6 +57,8 @@ router.get('/weapons', (req,res) =>{
         }
     });
 });
+
+
 
 
 module.exports = router;
