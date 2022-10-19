@@ -21,7 +21,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.get('/create', (req, res) => {
-    Res.render('uploadPicture', { items: items , title: 'Upload'});
+    Res.render('uploadPicture', { items: items, user: req.auth ,title: 'Upload'});
 });
 
 router.get('/', (req,res) =>{
@@ -31,7 +31,7 @@ router.get('/', (req,res) =>{
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('uploadPicture', { items: items , title: 'pictures'});
+            res.render('uploadPicture', { items: items ,user: req.auth, title: 'pictures'});
         }
     });
 });

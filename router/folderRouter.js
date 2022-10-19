@@ -6,7 +6,7 @@ const image = require('../API/models/Image');
 
 router.get('/', (req,res) =>{   
     // TODO: render actual rekenweb page (user is logged in)
-     return res.status(200).render("folder", {title: 'folder'});
+     return res.status(200).render("folder", {user: req.auth, title: 'folder'});
 });
 
 
@@ -17,7 +17,7 @@ router.get('/buildings', (req,res) =>{
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('buildings', { items: items , title: 'buildings folder'});
+            res.render('buildings', { items: items, user: req.auth ,title: 'buildings folder'});
         }
     });
 });
@@ -29,7 +29,7 @@ router.get('/items', (req,res) =>{
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('items', { items: items , title: 'items folder'});
+            res.render('items', { items: items, user: req.auth, title: 'items folder'});
         }
     });
 });
@@ -41,7 +41,7 @@ router.get('/vehicles', (req,res) =>{
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('vehicles', { items: items , title: 'vehicles folder'});
+            res.render('vehicles', { items: items, user: req.auth, title: 'vehicles folder'});
         }
     });
 });
@@ -53,7 +53,7 @@ router.get('/weapons', (req,res) =>{
             res.status(500).send('An error occurred', err);
         }
         else {
-            res.render('weapons', { items: items , title: 'weapons folder'});
+            res.render('weapons', { items: items, user: req.auth , title: 'weapons folder'});
         }
     });
 });

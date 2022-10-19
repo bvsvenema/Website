@@ -10,7 +10,7 @@ router.get('/:id', (req, res) =>{
 
     Image.findById(id)
     .then(result =>{
-        res.render('pictureDetail', {image: result, title: 'bonkus'})
+        res.render('pictureDetail', {image: result, user: req.auth ,title: 'bonkus'})
         console.log('test')
     }).catch(err =>{
         console.log(err);
