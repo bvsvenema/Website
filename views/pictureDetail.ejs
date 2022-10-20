@@ -7,15 +7,88 @@
   
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
-        <div class="col-lg-3 col-md-4 col-6">
-              <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
               <p><%= image.name %></p>
-          </div>
-          <div class="d-flex align-items-end flex-column" style="height: 200px;">
-            <div class="p-2">Flex item-a</div>
-            <div class="p-2">Flex item-b</div>
-            <div class="mt-auto p-2">Flex item-c</div>
-          </div>
+        </div>
+        <div class="col">
+          <% for(let i = 0, i < 6, i++){ %>
+
+            <p>d</p>
+
+            <%}%>
+
+        </div>
+        <div class="col">
+          
+        </div>
+      </div>
+    </div>
+
+          <div class="row text-center text-lg-start">
+          
+        </div>
+          <% if(image.userId == user.userId){ %>
+          <section class="gradient-custom">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+          
+                      <div class="mb-md-5 mt-md-4 pb-5">
+                          <h2>Upload information</h2>
+                          <p>Select</p>
+                          <select class="form-control form-control-lg" id="myselection">
+                            <option value="Select one">Select one</option>
+                            <option value="One">Small information</option>
+                            <option value="Two">Big information</option>
+                          </select>
+
+                          <div id="showOne" class="myDiv">
+                            You have selected option <strong>"Small information"</strong>.
+                            <form action="/view/uploadSmall" method="post"></form>
+                            <div class="form-outline form-white">
+                              <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                              <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required>
+                              <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="20" required>
+                              <label class="form-label" for="smallInformation">Small information</label>
+                            </div>
+                          </div>
+
+                          <div id="showTwo" class="myDiv">
+                            You have selected option <strong>"Big information"</strong>.      
+                            <form action="/view/uploadBig" method="post">
+                              <div class="form-outline form-white">
+                                <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+                                <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required> <br>
+                                <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
+                              </div><br>
+                                <button class="form-control form-control-lg" >Submit</button>
+                            </form>
+                          </div>
+
+
+                      </div>      
+                    </div>
+                </div>
+              </div>
+            </div>
+        </section>
+         <% }%>
      <%- include("./partials/footer.ejs") %>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>      
+
+<script>
+$(document).ready(function(){
+    $('#myselection').on('change', function(){
+    	var demovalue = $(this).val(); 
+        $("div.myDiv").hide();
+        $("#show"+demovalue).show();
+    });
+});
+</script> 
