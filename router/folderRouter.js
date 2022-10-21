@@ -11,6 +11,7 @@ router.get('/', (req,res) =>{
 
 
 router.get('/buildings', (req,res) =>{
+    //building folder and find all the images
     image.find({}, (err, items) => {
         if (err) {
             console.log(err);

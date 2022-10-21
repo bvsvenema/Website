@@ -7,8 +7,6 @@ var fs = require('fs');
 const path = require('path');
 const sanitize = require('mongo-sanitize');
 
-const { debug } = require('console');
-
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -37,8 +35,6 @@ router.get('/', (req,res) =>{
 });
 
 router.post('/upload', upload.single('image'), async (req, res, next) => {
-    //const userid = await user.findById({_id : userid});
-    //console.log(userid);'
     const {folder} = sanitize(req.body);
     var obj = { 
         name: req.body.name,

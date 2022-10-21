@@ -7,37 +7,53 @@
   
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
+    <br>
     <div class="container">
       <div class="row">
+        
         <div class="col">
           <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
               <p><%= image.name %></p>
         </div>
+
         <div class="col">
-          <div class="col-sm-8">
           <% itemsSmall.forEach(function(itemsSmall) { %>
             <%if(String(image._id) === String(itemsSmall.imageId)){%>
+              <div class="position-relative">
               <p class="d-inline-block"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %></p>
-              <div class=" d-grid gap-2 justify-content-md-end">
-              <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
-                <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
-            </form>
-          </div>
-          </div>
-            <%}%>
+            
+              <div class="position-absolute top-0 end-0">
+                <% if(image.userId == user.userId || user.admin > 2){ %>
+                <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
+                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                  <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
+                </form>
+                <%}%>
+              </div>
+              </div>
+          <%}%>           
           <% }) %> 
         </div>
+
         <div class="col">
           <% itemsBig.forEach(function(itemsBig) { %>
             <%if(String(image._id) === String(itemsBig.imageId)){%>
+              <div class="position-relative">
               <h2><%= itemsBig.title %></h2>
               <p><%= itemsBig.bigInformation %> </p>
+                <div class="position-absolute top-0 end-0">
+                  <% if(image.userId == user.userId || user.admin > 2){ %>
+                  <form action="/view/deleteBig/<%= itemsBig._id %>?_method=delete" method="POST">
+                    <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                    <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
+                  </form>
+                  <%}%>
+                </div>
+                </div>
             <%}%>
           <% }) %> 
         </div>
       </div>
-    </div>
 
           <div class="row text-center text-lg-start">
           
@@ -64,8 +80,8 @@
                                 <form action="/view/uploadSmall" method="post">
                                 <div class="form-outline form-white">
                                   <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                                  <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required><br>
-                                  <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="20" required>
+                                  <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required><br>
+                                  <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
                                   <label class="form-label" for="smallInformation">Small information</label>
                                 </div><br>
                                 <button class="form-control form-control-lg" >Submit</button>
@@ -77,7 +93,7 @@
                                 <form action="/view/uploadBig" method="post">
                                   <div class="form-outline form-white">
                                     <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
-                                    <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required> <br>
+                                    <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required> <br>
                                     <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
                                   </div><br>
                                     <button class="form-control form-control-lg" >Submit</button>
