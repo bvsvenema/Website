@@ -93,15 +93,15 @@
                                <h1>Users</h1>
                             
                             <div>
-                                <% if(user.length > 0){ 
-                                    user.forEach(user => { %>
-                                        <h3><%= user.fullName %></h3>
-                                        <p><%= user.email%></p>
-                                        <p><%= user._id %></p>  
-                                        <p><%= user.admin %></p>  
+                                <% if(admin.length > 0){ 
+                                    admin.forEach(admin => { %>
+                                        <h3><%= admin.fullName %></h3>
+                                        <p><%= admin.email%></p>
+                                        <p><%= admin._id %></p>  
+                                        <p><%= admin.admin %></p>  
                                     <%});%> 
                                     <%}else{%>
-                                        <p>there a no users</p>
+                                        <p>there a no admin</p>
                                         <%}%>
                             </div>
                         </div>

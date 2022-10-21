@@ -11,7 +11,7 @@ router.get('/admin', async (req, res) => {
     if(req.auth.admin <= 1) return res.status(400).redirect('/')
     User.find().sort({CreatedAt: -1 })
     .then((result) =>{
-        res.render('admin', {user: result, user: req.auth , title: 'All blogs'})
+        res.render('admin', {admin: result, user: req.auth , title: 'All blogs'})
     }).catch((err)=>{
         console.log(err);
     });

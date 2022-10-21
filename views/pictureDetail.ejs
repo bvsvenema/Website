@@ -14,81 +14,96 @@
               <p><%= image.name %></p>
         </div>
         <div class="col">
-          <% for(let i = 0, i < 6, i++){ %>
-
-            <p>d</p>
-
+          <div class="col-sm-8">
+          <% itemsSmall.forEach(function(itemsSmall) { %>
+            <%if(String(image._id) === String(itemsSmall.imageId)){%>
+              <p class="d-inline-block"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %></p>
+              <div class=" d-grid gap-2 justify-content-md-end">
+              <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
+                <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
+            </form>
+          </div>
+          </div>
             <%}%>
-
+          <% }) %> 
         </div>
         <div class="col">
-          
+          <% itemsBig.forEach(function(itemsBig) { %>
+            <%if(String(image._id) === String(itemsBig.imageId)){%>
+              <h2><%= itemsBig.title %></h2>
+              <p><%= itemsBig.bigInformation %> </p>
+            <%}%>
+          <% }) %> 
         </div>
       </div>
     </div>
 
           <div class="row text-center text-lg-start">
           
-        </div>
-          <% if(image.userId == user.userId){ %>
-          <section class="gradient-custom">
-              <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                  <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
           
-                      <div class="mb-md-5 mt-md-4 pb-5">
-                          <h2>Upload information</h2>
-                          <p>Select</p>
-                          <select class="form-control form-control-lg" id="myselection">
-                            <option value="Select one">Select one</option>
-                            <option value="One">Small information</option>
-                            <option value="Two">Big information</option>
-                          </select>
-
-                          <div id="showOne" class="myDiv">
-                            You have selected option <strong>"Small information"</strong>.
-                            <form action="/view/uploadSmall" method="post"></form>
-                            <div class="form-outline form-white">
-                              <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                              <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required>
-                              <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="20" required>
-                              <label class="form-label" for="smallInformation">Small information</label>
-                            </div>
-                          </div>
-
-                          <div id="showTwo" class="myDiv">
-                            You have selected option <strong>"Big information"</strong>.      
-                            <form action="/view/uploadBig" method="post">
-                              <div class="form-outline form-white">
-                                <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
-                                <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required> <br>
-                                <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
-                              </div><br>
-                                <button class="form-control form-control-lg" >Submit</button>
-                            </form>
-                          </div>
-
-
-                      </div>      
-                    </div>
-                </div>
-              </div>
             </div>
-        </section>
-         <% }%>
+              <% if(image.userId == user.userId || user.admin > 2){ %>
+              <section class="gradient-custom">
+                  <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                      <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+              
+                          <div class="mb-md-5 mt-md-4 pb-5">
+                              <h2>Upload information</h2>
+                              <p>Select</p>
+                              <select class="form-control form-control-lg" id="myselection">
+                                <option value="Select one">Select one</option>
+                                <option value="One">Small information</option>
+                                <option value="Two">Big information</option>
+                              </select>
+    
+                              <div id="showOne" class="myDiv">
+                                You have selected option <strong>"Small information"</strong>.
+                                <form action="/view/uploadSmall" method="post">
+                                <div class="form-outline form-white">
+                                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                                  <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required><br>
+                                  <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="20" required>
+                                  <label class="form-label" for="smallInformation">Small information</label>
+                                </div><br>
+                                <button class="form-control form-control-lg" >Submit</button>
+                              </form>
+                              </div>
+    
+                              <div id="showTwo" class="myDiv">
+                                You have selected option <strong>"Big information"</strong>.      
+                                <form action="/view/uploadBig" method="post">
+                                  <div class="form-outline form-white">
+                                    <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+                                    <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="10" required> <br>
+                                    <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
+                                  </div><br>
+                                    <button class="form-control form-control-lg" >Submit</button>
+                                </form>
+                              </div>
+    
+    
+                          </div>      
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+             <% }%>
      <%- include("./partials/footer.ejs") %>
 </body>
 </html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>      
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>     
 
 <script>
-$(document).ready(function(){
-    $('#myselection').on('change', function(){
-    	var demovalue = $(this).val(); 
-        $("div.myDiv").hide();
-        $("#show"+demovalue).show();
-    });
-});
-</script> 
+  $(document).ready(function(){
+      $('#myselection').on('change', function(){
+        var demovalue = $(this).val(); 
+          $("div.myDiv").hide();
+          $("#show"+demovalue).show();
+      });
+  });
+  </script> 
