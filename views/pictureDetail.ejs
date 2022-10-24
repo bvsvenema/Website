@@ -17,19 +17,32 @@
         </div>
 
         <div class="col">
-          <% itemsSmall.forEach(function(itemsSmall) { %>
-            <%if(String(image._id) === String(itemsSmall.imageId)){%>
+
+          <% itemsSmall.forEach(function(itemsSmall, index) {%>
+            <%if( String(image._id) === String(itemsSmall.imageId)){
+              console.log(index);
+              %>
               <div class="position-relative">
-              <p class="d-inline-block"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %></p>
-            
-              <div class="position-absolute top-0 end-0">
+              <div>
+                <p class="d-inline-block"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %>              </p>
+              </div>
+
+
                 <% if(image.userId == user.userId || user.admin > 2){ %>
+                  <div class="col-12 col-md-6">
+                <form>
+                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                  <button class="btn btn-sm btn-warning float-right me-md-2" type="submit">edit</button>
+                </form>
+              </div>
+
+              <div class="col-12 col-md-6">
                 <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
                   <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                  <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
+                  <button  class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
                 </form>
                 <%}%>
-              </div>
+                </div>
               </div>
           <%}%>           
           <% }) %> 
@@ -80,7 +93,7 @@
                                 <form action="/view/uploadSmall" method="post">
                                 <div class="form-outline form-white">
                                   <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                                  <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required><br>
+                                      <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required><br>
                                   <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
                                   <label class="form-label" for="smallInformation">Small information</label>
                                 </div><br>

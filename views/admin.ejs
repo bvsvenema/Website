@@ -99,6 +99,11 @@
                                         <p><%= admin.email%></p>
                                         <p><%= admin._id %></p>  
                                         <p><%= admin.admin %></p>  
+                                       
+                                        <form action="/api/admin/user/<%= admin._id %>?_method=delete" method="POST">
+                                            <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
+                                            <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                                        </form>
                                     <%});%> 
                                     <%}else{%>
                                         <p>there a no admin</p>

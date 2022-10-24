@@ -9,6 +9,18 @@ router.get('/', (req,res) =>{
      return res.status(200).render("folder", {user: req.auth, title: 'folder'});
 });
 
+router.post('/:id', (req, res) =>{
+    const id = req.params.id;//get the id of the text
+    //find the model in the database and delete it
+    image.findByIdAndRemove(id, (err) =>{
+        if(err){
+            console.log(err)
+            return res.json({ success: false });
+        }
+        res.redirect('/folder');
+    })
+
+})
 
 router.get('/buildings', (req,res) =>{
     //building folder and find all the images

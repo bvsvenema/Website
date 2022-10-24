@@ -21,6 +21,13 @@
                         <p><%= image.name %></p>
                         <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
                     </a>
+                <% if(image.userId == user.userId || user.admin > 2){ %>
+                    <form action="/folder/<%= image._id %>?_method=delete" method="POST">
+                        <textarea name="page" id="page" cols="30" rows="10" hidden>vehicles</textarea>
+                        <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                    </form>
+                <%}%>
+
                   </div>
             <%}})%> 
         </div>

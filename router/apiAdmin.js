@@ -15,11 +15,28 @@ router.use(async (req, res, next) => {
     else next();
 });
 
+router.post('/user/:id', (req, res) =>{
+    const id = req.params.id;//get the id of the text
+    //find the model in the database and delete it
+    user.findByIdAndRemove(id, (err) =>{
+        if(err){
+            console.log(err)
+            return res.json({ success: false });
+        }
+        res.redirect('/admin');
+    })
+
+})
+
+
 router.route('/user/:action')
     .post((req, res) => {
         switch (req.params.action) {
             case "register":
                 userRegister(req, res);
+                break;
+            case "delete":
+                userDelete(req,res)
                 break;
             default:
                 res.sendStatus(419);
@@ -27,8 +44,6 @@ router.route('/user/:action')
 
         }
     });
-
-
 
 
 module.exports = router;
@@ -48,7 +63,7 @@ async function userRegister(req, res) {
     });
     }
 
-    //check if 
+    //check if user already exist
     const email = `${userMail}`;
     const oldUser = await user.findOne({ email: email });
     if (oldUser) return user.find().sort({CreatedAt: -1 })
@@ -57,6 +72,7 @@ async function userRegister(req, res) {
         console.log(err);
     });
 
+    //create the model
     const fullName = `${firstName} ${lastName}`;
     const passHash = bcrypt.hashSync(password, 10);
     model.create({
