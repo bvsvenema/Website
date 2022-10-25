@@ -72,7 +72,7 @@
                                             <option value="0">Viewer</option>
                                             <option value="1">Stagiaire</option>
                                             <option value="2">Stage Begeleider</option>
-                                            <%if( admin == 3 ){%>
+                                            <%if( admin.admin > 2 ){%>
                                             <option value="3">Developer</option>
                                             <% } %> 
                                         </select><br>
@@ -100,7 +100,7 @@
                                         <p><%= admin._id %></p>  
                                         <p><%= admin.admin %></p>  
                                        
-                                        <form action="/api/admin/user/<%= admin._id %>?_method=delete" method="POST">
+                                        <form action="/admin/<%= admin._id %>?_method=delete" method="POST">
                                             <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
                                             <button class="btn btn-sm btn-danger" type="submit">delete</button>
                                         </form>
