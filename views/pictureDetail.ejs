@@ -4,123 +4,179 @@
 
 
 <body>
-  
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
     <br>
-    <div class="container">
-      <div class="row">
-        
-        <div class="col">
-          <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
-              <p><%= image.name %></p>
-        </div>
-
-        <div class="col">
-
-          <% itemsSmall.forEach(function(itemsSmall, index) {%>
-            <%if( String(image._id) === String(itemsSmall.imageId)){
-              console.log(index);
-              %>
-              <div class="position-relative">
-              <div>
-                <p class="d-inline-block"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %>              </p>
-              </div>
 
 
-                <% if(image.userId == user.userId || user.admin > 2){ %>
-                  <div class="col-12 col-md-6">
-                <form>
-                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                  <button class="btn btn-sm btn-warning float-right me-md-2" type="submit">edit</button>
-                </form>
-              </div>
+  <div class="container">
+    <h1><strong><%= image.name %></strong></h1>
+    <div class="row">
+      <div class="col">
+        <!-- Show the picture-->
+        <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
+      </div>
+      
 
-              <div class="col-12 col-md-6">
-                <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
-                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                  <button  class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
-                </form>
-                <%}%>
-                </div>
-              </div>
-          <%}%>           
-          <% }) %> 
-        </div>
+      <div class="col" id="Image picture">
+        <% itemsSmall.forEach(function(itemsSmall, index) {%>
+          <%if( String(image._id) === String(itemsSmall.imageId)){%>
+<div style="display: block;" id="1<%=itemsSmall._id%>">
 
-        <div class="col">
-          <% itemsBig.forEach(function(itemsBig) { %>
-            <%if(String(image._id) === String(itemsBig.imageId)){%>
-              <div class="position-relative">
-              <h2><%= itemsBig.title %></h2>
-              <p><%= itemsBig.bigInformation %> </p>
-                <div class="position-absolute top-0 end-0">
-                  <% if(image.userId == user.userId || user.admin > 2){ %>
-                  <form action="/view/deleteBig/<%= itemsBig._id %>?_method=delete" method="POST">
-                    <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                    <button class="btn btn-sm btn-danger float-right me-md-2" type="submit">delete</button>
-                  </form>
-                  <%}%>
-                </div>
-                </div>
+        <div class="row" id="">
+          <div class="col-sm-7">
+            <p class="d-inline p-2"><strong><%= itemsSmall.title %>:</strong> <%=itemsSmall.smallInformation %></p>
+          </div>
+
+          <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
+          <% if(image.userId == user.userId || user.admin > 2){ %>
+            <div class="col-sm-2">
+              <button onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this)" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
+            </div>
+
+            <div class="col-sm-1">
+              <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
+                <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                <button  class="btn btn-sm btn-danger" type="submit">delete</button>
+              </form>
+            </div>
+
             <%}%>
-          <% }) %> 
-        </div>
+          </div>
+</div>
+
+<!-- Show itemssmall when you press edit button-->
+<div style="display: none;" id="2<%=itemsSmall._id%>">
+
+  <div class="row" id="">
+    <form action="/view/editSmall/<%= itemsSmall._id %>" method="post">
+      <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+      <div class="col-sm-7">
+        <input type="text" value="<%= itemsSmall.title %>" name="Title" id="Title"  class="form-control form-control-sm" aria-describedby="Title" placeholder="Title" maxlength="20" required>
+        <input type="text" value="<%=itemsSmall.smallInformation %> " name="smallInformation" id="smallInformation"  class="form-control form-control-sm" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
       </div>
 
-          <div class="row text-center text-lg-start">
-          
-          
-            </div>
+    <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
+      <% if(image.userId == user.userId || user.admin > 2){ %>
+        <div class="col-sm-2">
+          <button  class="btn btn-sm btn-Success" type="submit">Save</button>
+        </div>
+
+      <div class="col-sm-1">
+        <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this)" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+      </div>
+    </form>
+
+      <%}%>
+    </div>
+</div>
+
+    <%}})%>
+</div>
+
+      <!-- Items big-->
+      <div class="col">
+
+        <% itemsBig.forEach(function(itemsBig) { %>
+          <%if(String(image._id) === String(itemsBig.imageId)){%>
+<div style="display: block;" id="1<%=itemsBig._id%>">
+
+            <div class="row">
+              <div class="col-sm-7">
+                <p><strong><%= itemsBig.title %></strong></p>
+              </div>
+
               <% if(image.userId == user.userId || user.admin > 2){ %>
-              <section class="gradient-custom">
-                  <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                      <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
-              
-                          <div class="mb-md-5 mt-md-4 pb-5">
-                              <h2>Upload information</h2>
-                              <p>Select</p>
-                              <select class="form-control form-control-lg" id="myselection">
-                                <option value="Select one">Select one</option>
-                                <option value="One">Small information</option>
-                                <option value="Two">Big information</option>
-                              </select>
-    
-                              <div id="showOne" class="myDiv">
-                                You have selected option <strong>"Small information"</strong>.
-                                <form action="/view/uploadSmall" method="post">
-                                <div class="form-outline form-white">
-                                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                                      <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required><br>
-                                  <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
-                                  <label class="form-label" for="smallInformation">Small information</label>
-                                </div><br>
-                                <button class="form-control form-control-lg" >Submit</button>
-                              </form>
-                              </div>
-    
-                              <div id="showTwo" class="myDiv">
-                                You have selected option <strong>"Big information"</strong>.      
-                                <form action="/view/uploadBig" method="post">
-                                  <div class="form-outline form-white">
-                                    <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
-                                    <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required> <br>
-                                    <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
-                                  </div><br>
-                                    <button class="form-control form-control-lg" >Submit</button>
-                                </form>
-                              </div>
-    
-    
-                          </div>      
-                        </div>
-                    </div>
-                  </div>
+                <div class="col-sm-2">
+                  <button onclick="quoteAdd('<%= itemsBig._id %>', '{!!$product->id!!}', this)" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
                 </div>
-            </section>
-             <% }%>
+                
+                <div class="col-sm-1">
+                  <form action="/view/deleteBig/<%= itemsBig._id %>?_method=delete" method="POST">
+                    <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                    <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                  </form>
+                </div>
+                <p class=""><%= itemsBig.bigInformation %> </p>
+                <%}%>
+              </div>
+</div>
+
+<div style="display: none;" id="2<%=itemsBig._id%>">
+
+              <div class="row">
+                <form action="/view/editBig/<%= itemsBig._id %>" method="post">
+                <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+                <div class="col-sm-7">
+                  <input type="text" value="<%= itemsBig.title %>" name="Title" id="Title"  class="form-control form-control-sm" aria-describedby="Title" placeholder="Title" maxlength="20" required>
+                  <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required><%= itemsBig.bigInformation %></textarea>
+                </div>
+                  <% if(image.userId == user.userId || user.admin > 2){ %>
+                  <div class="col-sm-2">
+                    <button  class="btn btn-sm btn-Success" type="submit">Save</button>
+                  </div>
+                  
+                  <div class="col-sm-1">
+                    <button type="button" onclick="quoteAdd('<%= itemsBig._id %>', '{!!$product->id!!}', this)" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+                  </div>
+                  <%}%>
+                </form>
+                </div>
+</div>
+        <%}})%>
+      </div>
+    </div>
+  </div>
+<br>
+
+<% if(image.userId == user.userId || user.admin > 2){ %>
+  <section class="gradient-custom">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2>Upload information</h2>
+              <p>Select</p>
+              <select class="form-control form-control-lg" id="myselection">
+                <option value="Select one">Select one</option>
+                  <option value="One">Small information</option>
+                  <option value="Two">Big information</option>
+                </select>
+    
+                <div id="showOne" class="myDiv">
+                  You have selected option <strong>"Small information"</strong>.
+                  <form action="/view/uploadSmall" method="post">
+                    <div class="form-outline form-white">
+                      <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                      <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required><br>
+                      <input type="text" name="smallInformation" id="smallInformation"  class="form-control form-control-lg" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
+                      <label class="form-label" for="smallInformation">Small information</label>
+                    </div><br>
+                    <button class="form-control form-control-lg" >Submit</button>
+                  </form>
+                </div>
+    
+                <div id="showTwo" class="myDiv">
+                   You have selected option <strong>"Big information"</strong>.      
+                    <form action="/view/uploadBig" method="post">
+                      <div class="form-outline form-white">
+                        <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+                        <input type="text" name="Title" id="Title"  class="form-control form-control-lg" aria-describedby="Title" placeholder="Title" maxlength="20" required> <br>
+                        <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required></textarea>
+                      </div><br>
+                      <button class="form-control form-control-lg" >Submit</button>
+                    </form>
+                  </div>
+    
+    
+                </div>      
+               </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      <% }%>
      <%- include("./partials/footer.ejs") %>
 </body>
 </html>
@@ -128,6 +184,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>     
 
 <script>
+
   $(document).ready(function(){
       $('#myselection').on('change', function(){
         var demovalue = $(this).val(); 
@@ -135,4 +192,17 @@
           $("#show"+demovalue).show();
       });
   });
+
+function quoteAdd(val, productId, button) {
+  var x = document.getElementById("1" + val)
+  var y = document.getElementById("2" + val)
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+
+}
   </script> 

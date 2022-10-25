@@ -86,6 +86,34 @@ router.post("/uploadSmall", (req, res) => {
     });
 });
 
+router.post("/editSmall/:id", (req, res) => {
+  const id = req.params.id; //get the id of the text
+
+  itemsSmall.findByIdAndUpdate(id, {title: req.body.Title, smallInformation: req.body.smallInformation}, function(err, docs){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/view/" + req.body.imageId);
+      console.log("update text: ", docs)
+    }
+  })
+})
+
+router.post("/editBig/:id", (req, res) => {
+  console.log('Test');
+  const id = req.params.id; //get the id of the text
+
+  itemsBig.findByIdAndUpdate(id, {title: req.body.Title, bigInformation: req.body.bigInformationText}, function(err, docs){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/view/" + req.body.imageId);
+      console.log("update text: ", docs)
+    }
+  })
+})
+
+
 router.post("/deleteSmall/:id", (req, res) => {
   const id = req.params.id; //get the id of the text
   //find the model in the database and delete it
