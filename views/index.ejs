@@ -7,31 +7,80 @@
   
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
-    <br><br><br><br>
-      <div class="container container-table">
+      <div class="container container-table h-100">
+        <div class="row justify-content-center align-items-center h-100">
         <div class="row">
           <div class="col">
             <div class="p-1 text-center .bg-secondary bg-gradient">
             <h1 class="p-2 bg-dark bg-gradient">Waar voor is deze site</h1>
-            <p class="p-2 bg-dark bg-gradient">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-               Vel quis eaque, illo dolores laborum repellat eveniet eum? Ducimus eius, rerum, cumque
-                voluptatum tempore totam placeat omnis ex minus, delectus aut! Lorem ipsum dolor sit amet 
-                consectetur, adipisicing elit. Sapiente placeat facere impedit officiis ipsam, rerum magnam 
-                nobis nihil veritatis mollitia consequatur eaque ea, enim porro laborum cum. Eius, optio inventore.</p>
+            <p class="p-2 bg-dark bg-gradient">Deze site is voor de mensen van simcen. je kunt hier foto's uploaden van je model om te laten zien.
+               en je kunt bij elk model informatie zetten. zodat de mensen die de modellen in een progamma moeten neerzetten ook de informatie hebben en niet 
+               zelf opniew hoeven te zoeken. dit kan veel tijd schelen. 
+
+            </p>
               </div>
           </div>
           <div class="col">
             <div class="p-1 text-center .bg-secondary bg-gradient">
             <h1 class="p-2 bg-dark bg-gradient">Hoe werkt het</h1>
-            <p class="p-2 bg-dark bg-gradient">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
-               perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?</p>
+            <div class="p-2 bg-dark bg-gradient">
+              <% switch (user.admin) {
+                  case 0:%>
+                  <p><strong>Stap 1:</strong> Ga naar de navbar en druk op folders<br>
+                      <strong>Stap 2:</strong> click dan op de folder die je wilt bekijken. <br>
+                      <strong>Stap 3:</strong> kies uit de folder welk model je wilt bekijken of project.<br>
+                      <strong>Stap 4:</strong> kijk naar de informatie.<br>
+                      <strong>Stap 5:</strong> kijk rond op de website.
+                    </p>
+                 <%break;
+                  case 1: %>
+                    <p><strong>Stap 1:</strong> ga bij de navbar naar upload.<br>
+                      <strong>Stap 2:</strong> vul de title in. upload je foto, select welke folder en druk op submit <br>
+                      <strong>Stap 3:</strong> ga naar de navbar druk op folders. click dan op de folder die je wilt bekijken. <br>
+                      <strong>Stap 4:</strong> kies uit de folder welk model je wilt bekijken of project. <br>
+                      <strong>Stap 5:</strong> als je eigenaar bent van de foto kun je informatie toevoegen, aanpassen en verwijderen.
+                        je kunt kiezen tussen kleine informatie en grote informatie. <br>
+                      <strong>Stap 6:</strong> kijk rond op de website.
+                    </p>
+                  <%break;
+                  case 2:%>
+                  <p><strong>Stap 1:</strong> ga bij de navbar naar upload.<br>
+                      <strong>Stap 2:</strong> vul de title in. upload je foto, select welke folder en druk op submit <br>
+                      <strong>Stap 3:</strong> ga naar de navbar druk op folders. click dan op de folder die je wilt bekijken. <br>
+                      <strong>Stap 4:</strong> kies uit de folder welk model je wilt bekijken of project. <br>
+                      <strong>Stap 5:</strong> als stage begeleider kun je aan elke foto informatie toevoegen, aanpassen en verwijderen.
+                        je kunt kiezen tussen kleine informatie en grote informatie. <br>
+                      <strong>Stap 6:</strong> kijk rond op de website.
+                    </p>
+                  <%break;
+                  default:%>
+                    <p><strong>Stap 1:</strong> ga bij de navbar naar upload.<br>
+                      <strong>Stap 2:</strong> vul de title in. upload je foto, select welke folder en druk op submit <br>
+                      <strong>Stap 3:</strong> ga naar de navbar druk op folders. click dan op de folder die je wilt bekijken. <br>
+                      <strong>Stap 4:</strong> kies uit de folder welk model je wilt bekijken of project. <br>
+                      <strong>Stap 5:</strong> als je eigenaar bent van de foto kun je informatie toevoegen, aanpassen en verwijderen.
+                        je kunt kiezen tussen kleine informatie en grote informatie. <br>
+                      <strong>Stap 6:</strong> kijk rond op de website.
+                    </p>
+                  <%break;
+              } 
+              %> 
+          </div>
                </div>
           </div>
-        </div> <br><br><br>
-        <div class="row">
-          
-            <h1 class="w-100 p-2 bg-dark bg-gradient">Iets</h1>
         </div>
+        <div class="row">
+          <div class="p-1 text-center .bg-secondary bg-gradient">
+            <h1 class="w-100 p-2 bg-dark bg-gradient">Iets</h1>
+            <p class="p-2 bg-dark bg-gradient">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
+              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
+              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
+              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?</p>
+            </div>
+        </div>
+      </div>
       </div>
      <%- include("./partials/footer.ejs") %>
 </body>

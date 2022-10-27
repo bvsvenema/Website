@@ -1,3 +1,4 @@
+const { repeat } = require('lodash');
 const mongoose = require('mongoose');
 
 const informationSmallSchema = new mongoose.Schema({
