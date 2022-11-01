@@ -10,7 +10,7 @@ const app = express();
 
 //connect to mongodb
 const dbURI = 'mongodb+srv://Bvsvenema:bCyOWJX9siLU7lcs@website.lqtups4.mongodb.net/Test?retryWrites=true&w=majority' 
-mongoose.connect(dbURI).then((result) => app.listen(3000))
+mongoose.connect(dbURI).then((result) => app.listen(5000))
 .catch((err) => console.log(err));
 
 app.use(requestLogger);
