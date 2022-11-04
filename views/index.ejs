@@ -7,12 +7,12 @@
   
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
-      <div class="container container-table h-100">
-        <div class="row justify-content-center align-items-center h-100">
+      <div class="container container-table">
+        <div class="row align-items-center h-100">
         <div class="row">
           <div class="col">
             <div class="p-1 text-center .bg-secondary bg-gradient">
-            <h1 class="p-2 bg-dark bg-gradient">Waar voor is deze site</h1>
+            <h1 class="p-2 bg-dark bg-gradient">Waar voor is deze site?</h1>
             <p class="p-2 bg-dark bg-gradient">Deze site is voor de mensen van simcen. je kunt hier foto's uploaden van je model om te laten zien.
                en je kunt bij elk model informatie zetten. zodat de mensen die de modellen in een progamma moeten neerzetten ook de informatie hebben en niet 
                zelf opniew hoeven te zoeken. dit kan veel tijd schelen. 
@@ -22,7 +22,7 @@
           </div>
           <div class="col">
             <div class="p-1 text-center .bg-secondary bg-gradient">
-            <h1 class="p-2 bg-dark bg-gradient">Hoe werkt het</h1>
+            <h1 class="p-2 bg-dark bg-gradient">Hoe werkt het>?</h1>
             <div class="p-2 bg-dark bg-gradient">
               <% switch (user.admin) {
                   case 0:%>
@@ -71,13 +71,69 @@
         </div>
         <div class="row">
           <div class="p-1 text-center .bg-secondary bg-gradient">
-            <h1 class="w-100 p-2 bg-dark bg-gradient">Iets</h1>
-            <p class="p-2 bg-dark bg-gradient">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
-              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
-              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi vitae amet error repellendus
-              perferendis aspernatur! Dolores molestias quisquam tempora enim aperiam in, nisi facilis at quia fugiat quos. Beatae, rem?</p>
+            <h1 class="w-100 p-2 bg-dark bg-gradient">Last uploaded</h1>
+            <div class="w-100 p-2 bg-dark bg-gradient">
+              <div class="row">
+                <div id="number" class="col">
+                  <p>Number</p>
+                </div>
+                <div id="title" class="col">
+                  <p>Title</p>
+                </div>
+                <div id="User" class="col">
+                  <p>Gebruiker</p>
+                </div>
+                <div id="folder" class="col">
+                  <p>Folder</p>
+                </div>
+                <div id="Created at" class="col">
+                  <p>Gemaakt op</p>
+                </div>
+              </div>
+            <%image.forEach(function(image, index) {%>
+              <%if(index < 10){ %>
+              <div class="row">
+                <div id="Number" class="col">
+                  <p><%=index+1 %>:</p>
+                </div>
+                <div id="title" class="col">
+                  <p><%= image.name%></p>
+                </div>
+                <div id="User" class="col">
+                  <%gebruiker.forEach(function(gebruiker) {
+                    if(String(gebruiker._id) === String(image.userId)){%>
+                      <p><%=gebruiker.fullName %></p>
+                  
+                    <%}  
+                  }); %>
+                  <p></p>
+                </div>
+                <div id="folder" class="col">
+                  <p>
+                    <%switch (image.folder) {
+                        case 0:%>
+                          <p>Buildings</p>
+                        <%break;
+                        case 1:%>
+                          <p>Items</p>
+                        <%break;
+                        case 2:%>
+                          <p>Vehicles</p>
+                        <%break;
+                        case 3:%>
+                          <p>Weapoons</p>
+                        <%break;                    
+                      default:%>
+                        <p>barkie</p> 0 = Buidlings, 1 = Items, 2 = Vehicles IT, 3 = Weapons
+                        <%break;
+                    }%>
+                </div>
+                <div id="Created at" class="col">
+                  <p><%=image.createdAt.toLocaleString()%></p>
+                </div>
+              </div>
+            <%}});%>
+          </div>
             </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 const User = require("../API/models/user");
+const image = require('../API/models/Image')
 
 router.get("/admin", async (req, res) => {
   if (!req.auth) return res.status(401).render("login", { title: "login" });
@@ -39,9 +40,12 @@ router.post('/admin/:id', (req, res) =>{
 router.get("/", async (req, res) => {
   // Verify user is logged in using req.auth
   if (!req.auth) return res.status(401).render("login", { title: "login" });
-  console.log("test");
+  image.find().sort({CreatedAt: -1}).then((image) =>{
+    User.find().then((gebruiker) =>{
+      return res.status(200).render("index", { image: image, gebruiker: gebruiker, user: req.auth, title: "Home" });
+    }).catch((err) =>{console.log(err)})
+  }).catch((err) =>{console.log(err)})
   // TODO: render actual rekenweb page (user is logged in)
-  return res.status(200).render("index", { user: req.auth, title: "Home" });
 });
 
 module.exports = router;

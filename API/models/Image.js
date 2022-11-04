@@ -10,6 +10,7 @@ var imageSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
+    createdAt: { type: Date, default: Date.now }
 });
   
 //Image is a model which has a schema imageSchema
