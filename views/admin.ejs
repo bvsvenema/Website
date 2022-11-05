@@ -93,17 +93,48 @@
                                <h1>Users</h1>
                             
                             <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h3>Name</h3>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Email</h3>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Admin</h3>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-1"></div>
+                                </div>
                                 <% if(admin.length > 0){ 
                                     admin.forEach(admin => { %>
-                                        <h3><%= admin.fullName %></h3>
-                                        <p><%= admin.email%></p>
-                                        <p><%= admin._id %></p>  
-                                        <p><%= admin.admin %></p>  
-                                       
-                                        <form action="/admin/<%= admin._id %>?_method=delete" method="POST">
-                                            <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
-                                            <button class="btn btn-sm btn-danger" type="submit">delete</button>
-                                        </form>
+                                    <div style="display: block;" id="1<%=admin._id%>">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p><strong><%= admin.fullName %></strong></p>
+                                            </div>
+
+                                            <div class="col">
+                                                <p><%= admin.email%></p>
+                                            </div>
+
+                                            <div class="col">
+                                                <p>Admin: <%= admin.admin %></p> 
+                                            </div>
+
+                                            <div class="col-sm-1">
+                                                <button onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this)" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
+                                            </div>
+
+                                            <div class="col-sm-1">
+                                                <form action="/admin/<%= admin._id %>?_method=delete" method="POST">
+                                                    <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
+                                                    <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      
                                     <%});%> 
                                     <%}else{%>
                                         <p>there a no admin</p>
@@ -118,11 +149,23 @@
         </div>
     </main>
 
-    <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
-    crossorigin="anonymous">
-    </script>
-
+    <%- include("./partials/footer.ejs") %>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>     
+
+<script>
+function quoteAdd(val, productId, button) {
+  var x = document.getElementById("1" + val)
+  var y = document.getElementById("2" + val)
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "block";
+  }
+
+}
+  </script> 
