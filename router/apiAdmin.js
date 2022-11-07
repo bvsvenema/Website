@@ -28,17 +28,6 @@ router.route("/user/:action").post((req, res) => {
 
 
 module.exports = router;
-async function userDelete(req,res){
-  const id = req.params.id;//get the id of the text
-  //find the model in the database and delete it
-  user.findByIdAndRemove(id, (err) =>{
-      if(err){
-          console.log(err)
-          return res.json({ success: false });
-      }
-      res.redirect('/admin');
-  })
-}
 // Functions
 async function userRegister(req, res) {
   //check if all things has been filled in

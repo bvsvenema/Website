@@ -49,7 +49,7 @@
 
                                     <div class="form-group">
                                         <!--Input email-->
-                                        <label for="InputPassword">E-mail</label>
+                                        <label for="userMail">E-mail</label>
                                         <input type="user" name="userMail" id="userMail" class="form-control"
                                             aria-describedby="emailHelp" placeholder="Enter E-mail" />
                                         <!--Input Password-->
@@ -72,7 +72,7 @@
                                             <option value="0">Viewer</option>
                                             <option value="1">Stagiaire</option>
                                             <option value="2">Stage Begeleider</option>
-                                            <%if( admin.admin > 2 ){%>
+                                            <%if( user.admin > 2 ){%>
                                             <option value="3">Developer</option>
                                             <% } %> 
                                         </select><br>
@@ -108,7 +108,7 @@
                                 </div>
                                 <% if(admin.length > 0){ 
                                     admin.forEach(admin => { %>
-                                    <div style="display: block;" id="1<%=admin._id%>">
+<div style="display: block;" id="1<%=admin._id%>">
                                         <div class="row">
                                             <div class="col">
                                                 <p><strong><%= admin.fullName %></strong></p>
@@ -119,22 +119,107 @@
                                             </div>
 
                                             <div class="col">
-                                                <p>Admin: <%= admin.admin %></p> 
+                                                <p>Admin: <%switch (admin.admin) {
+                                                        case 0:%>
+                                                            Viewer
+                                                            <%break;
+                                                        case 1:%>
+                                                            Stagier
+                                                            <%break;
+                                                        case 2:%>
+                                                            Stage begeleider
+                                                            <%break;
+                                                        case 3:%>
+                                                            Developer
+                                                            <%break;                    
+                                                    }%></p> 
                                             </div>
+                                            <%if(admin.admin == 3 && user.admin == 2){%>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-1"></div>
+                                               <% return;}%>
 
                                             <div class="col-sm-1">
-                                                <button onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this)" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
-                                            </div>
+                                                <div style="display: block;" id="delete1<%=admin._id%>">
+                                                    <div class="btn-group" role="button">
+                                                        <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, '')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button> &nbsp;
+                                                        <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
+                                                    </div>  
+                                                </div>
 
-                                            <div class="col-sm-1">
-                                                <form action="/admin/<%= admin._id %>?_method=delete" method="POST">
-                                                    <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
-                                                    <button class="btn btn-sm btn-danger" type="submit">delete</button>
-                                                </form>
+                                            <div style="display: none;" id="delete2<%=admin._id%>">
+                                                    <form action="/admin/<%= admin._id %>?_method=delete" method="POST">
+                                                        <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
+                                                        <div class="btn-group" role="button">
+                                                            <button class="btn btn-sm btn-danger" type="submit">Yes</button>&nbsp;
+                                                            <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                      
+</div>
+
+<div style="display: none;" id="2<%=admin._id%>">
+                                        <div class="row">
+                                            <form action="/admin/edit/<%=admin._id %>" method="post" name="Singup">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input  type="text" value="<%=admin.firstName %>" 
+                                                            name="firstName" id="firstName"  class="form-control form-control-sm" 
+                                                            aria-describedby="firstName" placeholder="Information" maxlength="30" required>
+                                                        </div>
+                                                        <div class="col">
+                                                        <input type="text" value="<%=admin.lastName %>" 
+                                                            name="lastName" id="lastName"  class="form-control form-control-sm" 
+                                                            aria-describedby="lastName" placeholder="Information" maxlength="30" required>   
+                                                    </div>
+                                                
+                                            
+
+                                            <div class="col">
+                                                <input type="text" value="<%=admin.email %>" 
+                                                            name="userMail" id="userMail"  class="form-control form-control-sm" 
+                                                            aria-describedby="userMail" placeholder="Information" maxlength="30" required>
+                                            </div>
+
+                                            <div class="col">
+                                                <select id="select" name="admin" class="autoselect form-select form-select-sm select" aria-label="Default select example" required> 
+                                                    <option value="<%=admin.admin%>" selected disabled hidden><%switch (admin.admin) {
+                                                        case 0:%>
+                                                            <p>Viewer</p>
+                                                            <%break;
+                                                        case 1:%>
+                                                            <p>Stagier</p>
+                                                            <%break;
+                                                        case 2:%>
+                                                            <p>Stage begeleider</p>
+                                                            <%break;
+                                                        case 3:%>
+                                                            <p>Developer</p>
+                                                            <%break;                    
+                                                    }%></option>
+                                                    <option value="0">Viewer</option>
+                                                    <option value="1">Stagiaire</option>
+                                                    <option value="2">Stage Begeleider</option>
+                                                    <%if( user.admin > 2 ){%>
+                                                        <option value="3">Developer</option>
+                                                    <% } %> 
+                                                </select><br>
+                                            </div>
+                                            <div class="col-sm-1">
+                                            <div class="btn-group" role="button">
+                                                <button  class="btn btn-sm btn-success" type="submit">Save</button> &nbsp;
+                                                <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, '')"  value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+                                            </div>
+                                        </div>
+                                        </div> 
+                                        </div>
+                                        </form>
+                                        </div>
+</div>
+
                                     <%});%> 
                                     <%}else{%>
                                         <p>there a no admin</p>
@@ -156,16 +241,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>     
 
 <script>
-function quoteAdd(val, productId, button) {
-  var x = document.getElementById("1" + val)
-  var y = document.getElementById("2" + val)
+
+function quoteAdd(val, productId, button, test) {
+  var x = document.getElementById(test + "1" + val)
+  var y = document.getElementById(test + "2" + val)
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
   } else {
     x.style.display = "none";
     y.style.display = "block";
-  }
-
+  } 
 }
+
+$(document).ready(function() {
+  // Loop for every select in page
+  $('select').each(function(index, id) {
+    // Get the value 
+    var theValue = $(this).attr('value');
+
+    // Get the ID  
+    var theID = $(this).attr('id');
+
+    // Make option selected 
+    $('select#' + theID + ' option[value=' + theValue + ']').attr('selected', true);
+  });
+});
   </script> 

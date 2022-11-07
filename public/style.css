@@ -1,11 +1,11 @@
 body{
+    height: 100%;
     background-image: url(./d190220jh0001.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: white;
 }
-
 .userImage{
     height: 150px!important;
     width: auto!important;

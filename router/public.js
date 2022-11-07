@@ -8,7 +8,6 @@ router.get("/admin", async (req, res) => {
   if (!req.auth) return res.status(401).render("login", { title: "login" });
   // TODO: handle authentication (move to apiAuth)
   //res.status(200).render('admin', {title: 'Admin'});
-  console.log(req.auth.admin);
   if (req.auth.admin <= 1) return res.status(400).redirect("/");
   User.find()
     .sort({ CreatedAt: -1 })
@@ -35,6 +34,24 @@ router.post('/admin/:id', (req, res) =>{
       res.redirect('/admin');
   })
 
+})
+
+router.post("/admin/edit/:id", (req, res) => {
+  console.log("Test")
+  const id = req.params.id; //get the id of the text
+  const fullname = req.body.firstName + " " + req.body.lastName;
+  User.findByIdAndUpdate(id, {firstName: req.body.firstName, 
+                                    lastName: req.body.lastName, 
+                                    fullName: fullname,
+                                    email: req.body.userMail,
+                                    admin: req.body.admin}, function(err, docs){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/admin/");
+      console.log("update text: ", docs)
+    }
+  })
 })
 
 router.get("/", async (req, res) => {
