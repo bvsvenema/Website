@@ -106,7 +106,6 @@
                                         <h3>Admin</h3>
                                     </div>
                                     <div class="col-sm-1"></div>
-                                    <div class="col-sm-1"></div>
                                 </div>
                                 <% if(admin.length > 0){ 
                                     admin.forEach(admin => { %>
@@ -137,7 +136,6 @@
                                                     }%></p> 
                                             </div>
                                             <%if(admin.admin == 3 && user.admin == 2){%>
-                                            <div class="col-sm-1"></div>
                                             <div class="col-sm-1"></div>
                                                <% return;}%>
 
@@ -230,9 +228,9 @@
                 </div></div>
                 <div style="display: none;" id="password2<%=admin._id%>">
                                                     <div class="row">
-                                                        <form action="/admin/editPassword"  method="post" name="Singup">
+                                                        <form action="/admin/editPassword/<%=admin._id%>"  method="post" name="Singup">
                                                         <div class="col-sm-10">
-                                                            <input type="password" value="" 
+                                                            <input type="password"
                                                                 name="password" id="password"  class="form-control form-control-sm" 
                                                                 aria-describedby="lastName" placeholder="input new password" maxlength="30" required>
                                                             </div>
@@ -240,7 +238,6 @@
                                                                 <div class="btn-group" role="button">
                                                                     
                                                                     <button class="btn btn-sm btn-success" type="submit">Save</button> &nbsp;
-                                                                    <button type="button" onclick="ChangeDiv('<%= admin._id %>', '{!!$product->id!!}', this, 'password')"  value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
                                                                 </div> 
                                                             </div>
                                                         </form>

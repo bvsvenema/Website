@@ -3,6 +3,7 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 const User = require("../API/models/user");
 const image = require('../API/models/Image')
+const bcrypt = require("bcryptjs");
 
 router.get("/admin", async (req, res) => {
   if (!req.auth) return res.status(401).render("login", { title: "login" });
@@ -49,9 +50,21 @@ router.post("/admin/edit/:id", (req, res) => {
       console.log(err);
     }else{
       res.redirect("/admin/");
-      console.log("update text: ", docs)
     }
   })
+})
+
+router.post("/admin/editPassword/:id", (req, res) => {
+  const id = req.params.id;
+  const password = bcrypt.hashSync(req.body.password, 10);
+  User.findByIdAndUpdate(id, {passHash: password}, function(err, docs){
+    if(err){
+      console.log(err)
+    }else{
+      res.redirect("/admin");
+    }
+  })
+
 })
 
 router.get("/", async (req, res) => {

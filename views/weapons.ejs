@@ -21,7 +21,7 @@
               src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>"
             />
           </a>
-          <% if(image.userId == user.userId || user.admin > 2){ %>
+          <% if(image.userId == user.userId || user.admin >= 2){ %>
 <div style="display: block;" id="delete1<%=image._id%>">
               <div class="btn-group" role="button">
                   <button type="button" onclick="changeDiv('<%= image._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
