@@ -4,6 +4,19 @@ router.use(express.urlencoded({ extended: true }));
 const Image = require("../API/models/Image");
 const itemsBig = require("../API/models/informationBig");
 const itemsSmall = require("../API/models/informationSmall");
+const expressSession = require("express-session"),
+  flash = require("connect-flash");
+
+router.use(expressSession({
+  secret:"secret",
+  cookie: {
+    maxAge: 40000000000000000000000
+  },
+  resave: false,
+  saveUninitialized: false
+}))
+
+router.use(flash())
 
 //picture page
 router.get("/:id", (req, res) => {
@@ -21,6 +34,7 @@ router.get("/:id", (req, res) => {
                 picture: id,
                 user: req.auth,
                 title: "Details",
+                errMsg: req.flash('imageView')
               });
             }).catch((err) => {console.log(err); });
         }).catch((err) => { console.log(err);});
@@ -48,6 +62,7 @@ router.post("/uploadBig", (req, res) => {
         } else {
           //upload the model
           items.save();
+          req.flash('imageView', req.body.Title + ': succesfully uploaded!')
           res.redirect("/view/" + req.body.imageId);
         }
       });
@@ -77,6 +92,7 @@ router.post("/uploadSmall", (req, res) => {
           console.log(err);
         } else {
           items.save(); //upload the model
+          req.flash('imageView', req.body.Title + ': succesfully uploaded!')
           res.redirect("/view/" + req.body.imageId);
         }
       });
@@ -93,6 +109,7 @@ router.post("/editSmall/:id", (req, res) => {
     if(err){
       console.log(err);
     }else{
+      req.flash('imageView', req.body.Title + ': succesfully edited!')
       res.redirect("/view/" + req.body.imageId);
       console.log("update text: ", docs)
     }
@@ -107,6 +124,7 @@ router.post("/editBig/:id", (req, res) => {
     if(err){
       console.log(err);
     }else{
+      req.flash('imageView',  req.body.Title + ': succesfully edited!')
       res.redirect("/view/" + req.body.imageId);
       console.log("update text: ", docs)
     }
@@ -122,6 +140,7 @@ router.post("/deleteSmall/:id", (req, res) => {
       console.log(err);
       return res.json({ success: false });
     }
+    req.flash('imageView', req.body.Title + ': succesfully deleted!')
     res.redirect("/view/" + req.body.imageId);
   });
 });
@@ -134,6 +153,7 @@ router.post("/deleteBig/:id", (req, res) => {
       console.log(err);
       return res.json({ success: false });
     }
+    req.flash('imageView', req.body.Title + ': succesfully deleted!')
     res.redirect("/view/" + req.body.imageId);
   });
 });

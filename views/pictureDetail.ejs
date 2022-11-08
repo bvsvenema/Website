@@ -30,16 +30,25 @@
 
           <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
           <% if(image.userId == user.userId || user.admin > 2){ %>
-            <div class="col-sm-2">
-              <button onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this)" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
-            </div>
-
-            <div class="col-sm-1">
+            <div class="col">
+    <div style="display: block;" id="delete1<%=itemsSmall._id%>"> 
+      <div class="btn-group" role="button">
+        <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this, '')" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">Edit</button> &nbsp;
+        <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-danger">Delete</button> &nbsp;
+      </div>
+    </div>
+              
+    <div style="display: none;" id="delete2<%=itemsSmall._id%>">
               <form action="/view/deleteSmall/<%= itemsSmall._id %>?_method=delete" method="POST">
                 <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                <button  class="btn btn-sm btn-danger" type="submit">delete</button>
+                <textarea name="Title" id="Title" hidden><%= itemsSmall.title %> </textarea>
+                  <div class="btn-group" role="button">
+                    <button  class="btn btn-sm btn-danger" type="submit">Yes</button>&nbsp;
+                    <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                </div>
               </form>
             </div>
+    </div>
 
             <%}%>
           </div>
@@ -51,19 +60,19 @@
   <div class="row" id="">
     <form action="/view/editSmall/<%= itemsSmall._id %>" method="post">
       <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
-      <div class="col-sm-7">
-        <input type="text" value="<%= itemsSmall.title %>" name="Title" id="Title"  class="form-control form-control-sm" aria-describedby="Title" placeholder="Title" maxlength="20" required>
-        <input type="text" value="<%=itemsSmall.smallInformation %> " name="smallInformation" id="smallInformation"  class="form-control form-control-sm" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
+      <div class="col-lg-8">
+        <input type="text" value="<%=itemsSmall.title %>" name="Title" id="Title"  class="form-control form-control-sm" aria-describedby="Title" placeholder="Title" maxlength="20" required>
+        <input type="text" value="<%=itemsSmall.smallInformation %>" name="smallInformation" id="smallInformation"  class="form-control form-control-sm" aria-describedby="smallInformation" placeholder="Information" maxlength="30" required>
       </div>
 
     <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
       <% if(image.userId == user.userId || user.admin > 2){ %>
-        <div class="col-sm-2">
-          <button  class="btn btn-sm btn-warning" type="submit">Save</button>
-        </div>
+        <div class="col-lg-3">
+          <div class="btn-group" role="button">
+          <button class="btn btn-sm btn-success" type="submit">Save</button>&nbsp;
 
-      <div class="col-sm-1">
-        <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this)" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+          <button type="button" onclick="quoteAdd('<%= itemsSmall._id %>', '{!!$product->id!!}', this, '')" value="<%= itemsSmall._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+      </div>
       </div>
     </form>
 
@@ -83,20 +92,30 @@
 
             <div class="row">
               <div class="col-sm-7">
-                <p><strong><%= itemsBig.title %></strong></p>
+                <p><strong><%=itemsBig.title %></strong></p>
               </div>
 
               <% if(image.userId == user.userId || user.admin > 2){ %>
-                <div class="col-sm-2">
-                  <button onclick="quoteAdd('<%= itemsBig._id %>', '{!!$product->id!!}', this)" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button>
-                </div>
                 
                 <div class="col-sm-1">
-                  <form action="/view/deleteBig/<%= itemsBig._id %>?_method=delete" method="POST">
-                    <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
-                    <button class="btn btn-sm btn-danger" type="submit">delete</button>
-                  </form>
-                </div>
+                  <div style="display: block;" id="delete1<%=itemsBig._id%>"> 
+                    <div class="btn-group" role="button">
+                      <button type="button" onclick="quoteAdd('<%=itemsBig._id%>', '{!!$product->id!!}', this, '')" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">Edit</button> &nbsp;
+                      <button type="button" onclick="quoteAdd('<%=itemsBig._id%>', '{!!$product->id!!}', this, 'delete')" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-danger">Delete</button> 
+                    </div>
+                  </div>
+                            
+                  <div style="display: none;" id="delete2<%=itemsBig._id%>">
+                            <form action="/view/deleteBig/<%=itemsBig._id%>?_method=delete" method="POST">
+                              <textarea name="imageId" id="imageId" hidden><%=image._id %></textarea>
+                              <textarea name="Title" id="Title" hidden><%= itemsBig.title%> </textarea>
+                                <div class="btn-group" role="button">
+                                  <button class="btn btn-sm btn-danger" type="submit">Yes</button>&nbsp;
+                                  <button type="button" onclick="quoteAdd('<%=itemsBig._id%>', '{!!$product->id!!}', this, 'delete')" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                              </div>
+                            </form>
+                    </div>
+                  </div>
                 <p class="text-break"><%= itemsBig.bigInformation %> </p>
                 <%}%>
               </div>
@@ -107,27 +126,33 @@
               <div class="row">
                 <form action="/view/editBig/<%= itemsBig._id %>" method="post">
                 <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
-                <div class="col-sm-7">
-                  <input type="text" value="<%= itemsBig.title %>" name="Title" id="Title"  class="form-control form-control-sm" aria-describedby="Title" placeholder="Title" maxlength="20" required>
-                  <textarea  class="form-control form-control-lg" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required><%= itemsBig.bigInformation %></textarea>
+                <div class="col-sm-10">
+                  <input type="text" value="<%=itemsBig.title %>" name="Title" id="Title" class="form-control form-control-sm w-100" aria-describedby="Title" placeholder="Title" maxlength="20" required>
+                  <textarea  class="form-control form-control-sm w-100" name="bigInformationText" id="bigInformationText" cols="30" rows="10" placeholder="Set here your information" required><%=itemsBig.bigInformation %></textarea>
                 </div>
+              
                   <% if(image.userId == user.userId || user.admin > 2){ %>
-                  <div class="col-sm-2">
-                    <button  class="btn btn-sm btn-Success" type="submit">Save</button>
+                    <div class="btn-group" role="button">
+                    <button  class="btn btn-sm btn-Success" type="submit">Save</button>&nbsp;
+                    <button type="button" onclick="quoteAdd('<%= itemsBig._id %>', '{!!$product->id!!}', this, '')" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
                   </div>
-                  
-                  <div class="col-sm-1">
-                    <button type="button" onclick="quoteAdd('<%= itemsBig._id %>', '{!!$product->id!!}', this)" value="<%= itemsBig._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
-                  </div>
-                  <%}%>
+                    <%}%>
                 </form>
-                </div>
+              </div>
 </div>
         <%}})%>
       </div>
     </div>
   </div>
 <br>
+<% if(locals.errMsg) { %>
+<div class="container">
+  <div class="d-flex aligns-items-center justify-content-center">
+      <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
+  </div>
+</div>
+<br>
+<% } %>
 
 <% if(image.userId == user.userId || user.admin > 2){ %>
   <section class="gradient-custom">
@@ -193,9 +218,9 @@
       });
   });
 
-function quoteAdd(val, productId, button) {
-  var x = document.getElementById("1" + val)
-  var y = document.getElementById("2" + val)
+function quoteAdd(val, productId, button, test) {
+  var x = document.getElementById(test + "1" + val)
+  var y = document.getElementById(test + "2" + val)
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
