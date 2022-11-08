@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 //express app
 const app = express();
+var flash = require('connect-flash');
 
 //connect to mongodb
 const dbURI = 'mongodb+srv://Bvsvenema:bCyOWJX9siLU7lcs@website.lqtups4.mongodb.net/Test?retryWrites=true&w=majority' 
@@ -16,6 +17,7 @@ mongoose.connect(dbURI).then((result) => app.listen(process.env.PORT || 3000))
 app.use(requestLogger);
 
 //app use middleware
+
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
@@ -53,7 +55,6 @@ const jwtOptions = {
     }
 }
 
-
 app.use('/api/admin', jwt(jwtOptions.secure) ,apiAdminRouter);
 
 app.use('/api', jwt(jwtOptions.lax), apiRouter);
@@ -66,6 +67,7 @@ app.use('/view', jwt(jwtOptions.secure), viewRouter)
 
 app.use('/picture', jwt(jwtOptions.secure), pictureRouter);
 
+app.use(flash());
 //when the token is expired delete the token and send back to the login page
 app.use((err, req, res, next) => {  if (err.name === 'UnauthorizedError') { 
     res.clearCookie('token');

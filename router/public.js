@@ -57,7 +57,7 @@ router.post("/admin/edit/:id", (req, res) => {
 router.get("/", async (req, res) => {
   // Verify user is logged in using req.auth
   if (!req.auth) return res.status(401).render("login", { title: "login" });
-  image.find().sort({CreatedAt: -1}).then((image) =>{
+  image.find().sort({createdAt: -1}).then((image) =>{
     User.find().then((gebruiker) =>{
       return res.status(200).render("index", { image: image, gebruiker: gebruiker, user: req.auth, title: "Home" });
     }).catch((err) =>{console.log(err)})

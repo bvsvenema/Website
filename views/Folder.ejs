@@ -1,6 +1,6 @@
 <html lang="en">
    <%- include("./partials/head.ejs") %>
-<body>
+   <body class="d-flex flex-column min-vh-100">
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
 
@@ -36,6 +36,9 @@
                 </a>
             </div>
         </div>
+        <% if(locals.errMsg) { %>
+            <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
+        <% } %>
     </div>
 
     <%- include("./partials/footer.ejs") %>

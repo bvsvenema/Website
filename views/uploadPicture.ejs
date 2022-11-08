@@ -4,7 +4,7 @@
 
     <%- include("./partials/head.ejs") %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
     <br><br><br><br>
@@ -29,7 +29,7 @@
                       </div>
                       <div class="mb-4">
                         <label class="form-label" for="InputFolder">Choose folder</label><br>
-                        <select name="folder" id="folder" class="w-100 form-control-lg" aria-label="Default select example">
+                        <select name="folder" id="folder" class="w-100 form-control-lg" aria-label="Default select example" required>
                             <option value="0">Buildings</option>
                             <option value="1">Items</option>
                             <option value="2">Vehicles</option>

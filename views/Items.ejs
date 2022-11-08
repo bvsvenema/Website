@@ -3,7 +3,7 @@
         <%- include("./partials/head.ejs") %>
 
       
-<body>
+<body class="d-flex flex-column min-vh-100">
     <h1></h1>
     <%- include("./partials/nav.ejs") %>
     <div class="container">
@@ -23,17 +23,44 @@
                     </a>
 
                     <% if(image.userId == user.userId || user.admin > 2){ %>
-                    <form action="/folder/<%= image._id %>?_method=delete" method="POST">
-                        <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
-                        <button class="btn btn-sm btn-danger" type="submit">delete</button>
-                    </form>
+<div style="display: block;" id="delete1<%=image._id%>">
+                    <div class="btn-group" role="button">
+                        <button type="button" onclick="changeDiv('<%= image._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
+</div>  
+</div>
+<div style="display: none;" id="delete2<%=image._id%>">
+                <form action="/folder/<%= image._id %>?_method=delete" method="POST">
+                    <textarea name="page" id="page" cols="30" rows="10" hidden>items</textarea>
+                    <div class="btn-group" role="button">
+                        <button class="btn btn-sm btn-danger" type="submit">Yes</button> &nbsp;
+                        <button type="button" onclick="changeDiv('<%= image._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                    </div>
+                </form>
+</div>
                 <%}%>
 
                   </div>
             <%}})%> 
         </div>
+        <% if(locals.errMsg) { %>
+            <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
+        <% } %>
       </div>
 
       <%- include("./partials/footer.ejs") %>
 </body>
 </html>
+
+<script>
+    function changeDiv(val, productId, button, test) {
+  var x = document.getElementById(test + "1" + val)
+  var y = document.getElementById(test + "2" + val)
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    x.style.display = "none";
+    y.style.display = "block";
+  } 
+}
+</script>

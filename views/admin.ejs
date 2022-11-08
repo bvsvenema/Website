@@ -14,7 +14,7 @@
     <title>Simcen</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <main>
         <!--Header-->
         <section class="py-5 text-center container">
@@ -142,8 +142,8 @@
                                             <div class="col-sm-1">
                                                 <div style="display: block;" id="delete1<%=admin._id%>">
                                                     <div class="btn-group" role="button">
-                                                        <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, '')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button> &nbsp;
-                                                        <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
+                                                        <button type="button" onclick="ChangeDiv('<%= admin._id %>', '{!!$product->id!!}', this, '')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">edit</button> &nbsp;
+                                                        <button type="button" onclick="ChangeDiv('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
                                                     </div>  
                                                 </div>
 
@@ -152,7 +152,7 @@
                                                         <textarea name="page" id="page" cols="30" rows="10" hidden>weapons</textarea>
                                                         <div class="btn-group" role="button">
                                                             <button class="btn btn-sm btn-danger" type="submit">Yes</button>&nbsp;
-                                                            <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                                                            <button type="button" onclick="ChangeDiv('<%= admin._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -211,7 +211,7 @@
                                             <div class="col-sm-1">
                                             <div class="btn-group" role="button">
                                                 <button  class="btn btn-sm btn-success" type="submit">Save</button> &nbsp;
-                                                <button type="button" onclick="quoteAdd('<%= admin._id %>', '{!!$product->id!!}', this, '')"  value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+                                                <button type="button" onclick="ChangeDiv('<%= admin._id %>', '{!!$product->id!!}', this, '')"  value="<%= admin._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
                                             </div>
                                         </div>
                                         </div> 
@@ -242,7 +242,7 @@
 
 <script>
 
-function quoteAdd(val, productId, button, test) {
+function ChangeDiv(val, productId, button, test) {
   var x = document.getElementById(test + "1" + val)
   var y = document.getElementById(test + "2" + val)
   if (x.style.display === "none") {
