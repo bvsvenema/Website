@@ -84,11 +84,7 @@
                                         </div>
                                     </div>
         
-                                    <% if(locals.errMsg) { %>
-                                        <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
-                                    <% }else{ %>
-                                        <br><br><br>
-                                    <% } %>
+                                        <p class=" h5 mt-3 text-danger"><%= locals.errMsg %> ++</p>
                                 </form>
                             </div>                       
                             <div class="tab-pane fade" id="UsersMenu"  role="tabpanel" tabindex="0">
@@ -226,7 +222,7 @@
                                                             <a href="#" onclick="ChangeDiv('<%=admin._id%>', '{!!$product->id!!}', this, 'password')" value="<%= admin._id %>" id="inquireButton">Change Password</a>
                                                         </div>
                 </div></div>
-                <div style="display: none;" id="password2<%=admin._id%>">
+                <div style="display: none;" id="password3<%=admin._id%>">
                                                     <div class="row">
                                                         <form action="/admin/editPassword/<%=admin._id%>"  method="post" name="Singup">
                                                         <div class="col-sm-10">
@@ -273,6 +269,7 @@
 function ChangeDiv(val, productId, button, test) {
   var x = document.getElementById(test + "1" + val)
   var y = document.getElementById(test + "2" + val)
+
   if (x.style.display === "none") {
     x.style.display = "block";
     y.style.display = "none";
