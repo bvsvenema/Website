@@ -4,15 +4,10 @@ const express = require('express');
 const { expressjwt: jwt } = require('express-jwt');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
 //express app
 const app = express();
 var flash = require('connect-flash');
 
-//connect to mongodb
-const dbURI = 'mongodb+srv://Bvsvenema:bCyOWJX9siLU7lcs@website.lqtups4.mongodb.net/Test?retryWrites=true&w=majority' 
-mongoose.connect(dbURI).then((result) => app.listen(80))
-.catch((err) => console.log(err));
 
 app.use(requestLogger);
 
