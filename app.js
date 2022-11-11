@@ -67,7 +67,7 @@ app.use('/view', jwt(jwtOptions.secure), viewRouter)
 
 app.use('/picture', jwt(jwtOptions.secure), pictureRouter);
 
-app.use(flash());
+
 //when the token is expired delete the token and send back to the login page
 app.use((err, req, res, next) => {  if (err.name === 'UnauthorizedError') { 
     res.clearCookie('token');
