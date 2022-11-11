@@ -18,6 +18,7 @@ router.use(flash())
 
 router.get("/", (req, res) => {
   // TODO: render actual rekenweb page (user is logged in)
+  console.log("Test");
   return res.status(200).render("folder", { user: req.auth, title: "folder" });
 });
 
