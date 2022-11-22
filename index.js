@@ -19,8 +19,8 @@ const httpsServer = https.createServer(credentials, app);
 
 // Default ports used by webbrowsers
 // If you wish for your site to be public, make sure you open both ports in your firewall and router.
-const HTTP_PORT = 80;
-const HTTPS_PORT = 443;
+const HTTP_PORT = 8080;
+const HTTPS_PORT = 44343;
 
 // Start the servers
 httpServer.listen(HTTP_PORT, () => {
