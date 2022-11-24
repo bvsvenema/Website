@@ -5,7 +5,7 @@
     <%- include("./partials/nav.ejs") %>
     <div class="container">
 
-        <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Thumbnail Gallery</h1>
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0">buildings Gallery</h1>
       
         <hr class="mt-2 mb-5">
       
@@ -18,7 +18,7 @@
                         <p><%= image.name %></p>
                         <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
                     </a> <br>
-            <% if(image.userId == user.userId || user.admin < 2){ %>
+            <% if(image.userId == user.userId || user.admin >= 2){ %>
 <div style="display: block;" id="delete1<%=image._id%>">
                     <div class="btn-group" role="button">
                         <button type="button" onclick="changeDiv('<%= image._id %>', '{!!$product->id!!}', this, 'delete')"value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-danger">delete</button>
@@ -42,7 +42,7 @@
         <div class="d-flex aligns-items-center justify-content-center">
             <% if(locals.errMsg) { %>
             <p class=" h5 mt-3 text-danger"><%= locals.errMsg %></p>
-        <% } %>
+          <% } %>
         </div>
     </div>
 

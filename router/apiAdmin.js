@@ -45,7 +45,7 @@ async function userRegister(req, res) {
 
   //check if 
   //check if user already exist
-  const email = `${userMail}`;
+  const email = `${userMail.toLowerCase()}`;
   const oldUser = await user.findOne({ email: email });
   if (oldUser) return user.find().sort({CreatedAt: -1 })
   .then((result) =>{ res.status(400).render('admin', {user: result, admin: req.auth.admin, errMsg: "User already exist" })
