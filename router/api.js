@@ -5,8 +5,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const model = require("../API/models/user");
 const sanitize = require("mongo-sanitize");
-const { rmSync } = require("fs");
-const { rest } = require("lodash");
+const {JWT_Key} = process.env;
+
 const cookieOptions = {
   strict: {
     httpOnly: true,
@@ -39,7 +39,7 @@ router.route("/login").post(async (req, res) => {
     // Sign new token for this user
     const token = jwt.sign(
       { userId: user._id, admin: user.admin },
-      "blubblub",
+      JWT_Key,
       { expiresIn: "30m" }
     );
 

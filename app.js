@@ -7,7 +7,7 @@ const morgan = require('morgan');
 //express app
 const app = express();
 var flash = require('connect-flash');
-
+const {JWT_Key} = process.env;
 
 app.use(requestLogger);
 
@@ -33,7 +33,7 @@ const viewRouter = require('./router/viewRouter.js')
 
 const jwtOptions = {
       secure: {
-        secret: 'blubblub' ,
+        secret: JWT_Key ,
         getToken: (req) => {
             return req.cookies['token'];
         },
@@ -41,7 +41,7 @@ const jwtOptions = {
         algorithms: ["HS256"]
     },
     lax: {
-        secret: 'blubblub' ,
+        secret: JWT_Key ,
         credentialsRequired: false,
         getToken: (req) => {
             return req.cookies['token'];
