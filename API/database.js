@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const { MONGO_URI, MONGO_DB, MONGO_USER, MONGO_PASSWORD } = process.env;
 
 exports.connect = () => {
-    const dbURI = 'mongodb+srv://Bvsvenema:bCyOWJX9siLU7lcs@website.lqtups4.mongodb.net/Test?retryWrites=true&w=majority' 
+    const dbURI = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_URI}/${MONGO_DB}?retryWrites=true&w=majority` 
     mongoose.connect(dbURI).then(() => {
         console.log(`Connected to database on `);
     }).catch((err) => {
