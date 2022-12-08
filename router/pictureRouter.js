@@ -58,20 +58,13 @@ router.get("/", (req, res) => {
 });
 
 router.post("/edit/:id", upload.single("image"), async (req, res, next) => {
-  if(req.file == null){
-    console.log("bonk")
-  }else{
-    console.log('bots')
-  }
-  console.log(req.file);
   const id = req.params.id;
-  console.log("woop woop")
-  console.log(fs.readFileSync)
   const { folder } = sanitize(req.body);
+  console.log(folder);
   if(req.file == null){
     console.log("text")
     try{
-      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: folder})
+      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: req.body.folder})
       console.log(res.name + " " + res.folder + " " + res._id);
   }
   catch(err){
@@ -82,7 +75,7 @@ router.post("/edit/:id", upload.single("image"), async (req, res, next) => {
   }else{
     console.log("edit picture")
     try{
-      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: folder, img: {data: fs.readFileSync(
+      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: req.body.folder, img: {data: fs.readFileSync(
       path.join(__dirname, "../uploads/" + req.file.filename )
     ),
       contentType: "image/png",
@@ -107,7 +100,7 @@ router.post("/upload", upload.single("image"), async (req, res, next) => {
   var obj = {
     name: req.body.name,
     userId: req.auth.userId,
-    folder: folder,
+    folder: req.body.folder,
     img: {
       data: fs.readFileSync(
         path.join(__dirname, "../uploads/" + req.file.filename )

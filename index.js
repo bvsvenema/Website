@@ -11,10 +11,10 @@ const {HTTPS_port} = process.env;
 const app = require('./app');
 
 // Load SSL certificate and key
-//const credentials = {
-//    key: fs.readFileSync('sslcert/key.pem'),
-//    cert: fs.readFileSync('sslcert/cert.pem')
-//}
+const credentials = {
+    key: fs.readFileSync('sslcert/key.pem'),
+    cert: fs.readFileSync('sslcert/cert.pem')
+}
 
 // Create HTTP and HTTPS server
 const httpServer = http.createServer(app);
@@ -23,13 +23,13 @@ const httpServer = http.createServer(app);
 // Default ports used by webbrowsers
 // If you wish for your site to be public, make sure you open both ports in your firewall and router.
 const HTTP_PORT = HTTP_port;
-//const HTTPS_PORT = HTTPS_port;
+const HTTPS_PORT = HTTPS_port;
 
 // Start the servers
 httpServer.listen(HTTP_PORT, () => {
     console.log(`HTTP:${HTTP_PORT} LISTENING`);
 });
 
-//httpsServer.listen(HTTPS_PORT, () => {
-//    console.log(`HTTPS:${HTTPS_PORT} LISTENING`);
-//});
+httpsServer.listen(HTTPS_PORT, () => {
+    console.log(`HTTPS:${HTTPS_PORT} LISTENING`);
+});
