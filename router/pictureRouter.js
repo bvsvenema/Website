@@ -57,9 +57,52 @@ router.get("/", (req, res) => {
   });
 });
 
+router.post("/edit/:id", upload.single("image"), async (req, res, next) => {
+  if(req.file == null){
+    console.log("bonk")
+  }else{
+    console.log('bots')
+  }
+  console.log(req.file);
+  const id = req.params.id;
+  console.log("woop woop")
+  console.log(fs.readFileSync)
+  const { folder } = sanitize(req.body);
+  if(req.file == null){
+    console.log("text")
+    try{
+      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: folder})
+      console.log(res.name + " " + res.folder + " " + res._id);
+  }
+  catch(err){
+    console.log(err);
+  }
+  req.flash('imageView', 'ImageText succesfully to upload!');
+  res.redirect("/view/" + req.params.id);
+  }else{
+    console.log("edit picture")
+    try{
+      const res = await image.findOneAndUpdate({_id:id}, {name: req.body.name,folder: folder, img: {data: fs.readFileSync(
+      path.join(__dirname, "../uploads/" + req.file.filename )
+    ),
+      contentType: "image/png",
+    }, })
+      console.log(res.name + " " + res.folder + " " + res._id);
+  }
+  catch(err){
+    req.flash('imageView', 'Image and text failed to upload!')
+    res.redirect("/view/" + req.params.id)
+    console.log(err);
+  }
+  req.flash('imageView', 'ImageText succesfully upload!');
+  res.redirect("/view/" + req.params.id);
+  }
+})
+
 router.post("/upload", upload.single("image"), async (req, res, next) => {
   //const userid = await user.findById({_id : userid});
   //console.log(userid);'
+  console.log(req.file.filename)
   const { folder } = sanitize(req.body);
   var obj = {
     name: req.body.name,

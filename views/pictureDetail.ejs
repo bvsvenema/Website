@@ -16,7 +16,89 @@
       <div class="col">
         <!-- Show the picture-->
         <img class="img-fluid img-thumbnail" src="data:Image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>" >
+        <div style="display: block;" id="1<%=image._id%>">
+
+          <div class="row" id="">
+  
+            <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
+            <% if(image.userId == user.userId || user.admin > 2){ %>
+              <div class="col">
+      <div style="display: block;" id="delete1<%=image._id%>"> 
+        <div class="btn-group" role="button">
+          <button type="button" onclick="quoteAdd('<%= image._id %>', '{!!$product->id!!}', this, '')" value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-warning">Edit</button> &nbsp;
+          <button type="button" onclick="quoteAdd('<%= image._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-danger">Delete</button> &nbsp;
+        </div>
       </div>
+                
+      <div style="display: none;" id="delete2<%=image._id%>">
+                <form action="/view/deleteSmall/<%= image._id %>?_method=delete" method="POST">
+                  <textarea name="imageId" id="imageId" hidden><%= image._id %></textarea>
+                  <textarea name="Title" id="Title" hidden><%= image.title %> </textarea>
+                    <div class="btn-group" role="button">
+                      <button  class="btn btn-sm btn-danger" type="submit">Yes</button>&nbsp;
+                      <button type="button" onclick="quoteAdd('<%= image._id %>', '{!!$product->id!!}', this, 'delete')" value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-success">No</button>
+                  </div>
+                </form>
+              </div>
+      </div>
+  
+              <%}%>
+            </div>
+  </div>
+  
+  <!-- Show image when you press edit button-->
+  <div style="display: none;" id="2<%=image._id%>">
+  
+    <div class="row" id="">
+      <form action="/picture/edit/<%= image._id %>" method="post" enctype="multipart/form-data">
+        <textarea name="imageId" id="imageId" hidden><%= image._id%></textarea>
+        <div class="col-lg-8">
+          <label class="" for="name">File Name</label>
+          <input type="text" name="name" id="name"  class="form-control form-control-sm" aria-describedby="name" value="<%= image.name%>" required>
+          <label for="image" class="">Set File</label>
+          <input class="form-control form-control-sm" type="file" id="image" name="image" accept="image/jpeg, image/png, image/webp">
+          <label class="" for="InputFolder">Choose folder</label><br>
+        
+          <select id="select" name="admin" class="autoselect form-select form-select-sm select" aria-label="Default select example" required> 
+          <option value="<%=image.folder%>" selected disabled hidden>
+            <%switch (image.folder) {
+              case 0:%>
+                  <p>Buildings</p>
+                  <%break;
+              case 1:%>
+                  <p>Items</p>
+                  <%break;
+              case 2:%>
+                  <p>Vehicles</p>
+                  <%break;
+              case 3:%>
+                  <p>Weapons</p>
+                  <%break;                    
+          }%>
+          </option>
+              <option value="0">Buildings</option>
+              <option value="1">Items</option>
+              <option value="2">Vehicles</option>
+              <option value="3">Weapons</option>
+            </select>
+        </div>
+  
+      <!--only show this if you are the owner of this picture or you are higher then level 2 admin-->
+        <% if(image.userId == user.userId || user.admin > 2){ %>
+          <div class="col-lg-3">
+            <div class="btn-group" role="button">
+            <button class="btn btn-sm btn-success" type="submit">Save</button>&nbsp;
+  
+            <button type="button" onclick="quoteAdd('<%= image._id %>', '{!!$product->id!!}', this, '')" value="<%= image._id %>" id="inquireButton" class="btn btn-sm btn-warning">Cancel</button>
+        </div>
+        </div>
+      </form>
+  
+        <%}%>
+      </div>
+  </div>
+      </div>
+      
       
 
       <div class="col" id="Image picture">
