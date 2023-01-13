@@ -18,7 +18,12 @@ router.use(expressSession({
   saveUninitialized: false
 }))
 
-const { debug } = require("console");
+if(!fs.existsSync("uploads")){
+  console.log("Uploads does not exist")
+  console.log("Creating uploads folder . . .")
+  fs.mkdirSync("uploads");
+  console.log("Create uploads folder")
+}
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -30,6 +35,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+
 
 router.use(flash())
 
